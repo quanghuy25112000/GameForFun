@@ -48,6 +48,9 @@ const style=`<style>
     transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
     background-color: red;
     cursor: pointer;
+    cursor: pointer;font-family: 'Langar', cursive;
+    font-size: 22px;
+    color:yellow;
   } 
   
   .btn-5:hover {
@@ -66,6 +69,8 @@ const style=`<style>
 #redirect{
     color: yellow;
     cursor: pointer;
+    cursor: pointer;font-family: 'Langar', cursive;
+    font-size: 20px;
 }
 </style>`
 import '../component/inputWrapper.js'

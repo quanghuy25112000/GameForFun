@@ -24,7 +24,7 @@ const style=`<style>
     text-align: center;
 }
 #img{
-    margin-bottom:20px;
+    margin-bottom:17px;
     font-family: 'Ewert', cursive;
     text-align:center;
     color: #fd0000;
@@ -47,7 +47,9 @@ const style=`<style>
     text-shadow: none;
     transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
     background-color: red;
-    cursor: pointer;
+    cursor: pointer;font-family: 'Langar', cursive;
+    font-size: 22px;
+    color:yellow;
   } 
   
   .btn-5:hover {
@@ -66,6 +68,8 @@ const style=`<style>
 #redirect{
     color: yellow;
     cursor: pointer;
+    cursor: pointer;font-family: 'Langar', cursive;
+    font-size: 22px;
 }
 </style>`
 // import '../component/inputWrapper.js'
