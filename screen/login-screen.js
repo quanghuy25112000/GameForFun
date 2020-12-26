@@ -68,5 +68,5 @@ async function getMany(){
    
     console.log(user);
 }
-getMany()
+
 window.customElements.define('login-screen',LoginScreen)

@@ -98,5 +98,5 @@ async function getMany(){
    
     console.log(user);
 }
-getMany()
+
 window.customElements.define('register-screen',RegisterScreen)

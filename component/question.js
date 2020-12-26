@@ -1,41 +1,42 @@
 const style=`<style>
-    .game-answer{
+    .game-question{
         border: 2px solid black;
-        width:70%;
-        height:7vw;
+        width:25%;
+        height:5vw;
         margin:auto;
         
+        
     }
-    .answer{
+    .question{
         text-align:center;
         
     }
 </style>`
-export class Answer extends HTMLElement{
+export class Question extends HTMLElement{
     
     constructor(){
         super()
         this.shadowDom=this.attachShadow({mode:'open'})
     }
     connectedCallback(){
-        this.answer=this.getAttribute('answer')
+        this.question=this.getAttribute('question')
         this.shadowDom.innerHTML=`
         ${style}
-            <div class="game-answer">
-                <div class="answer">
-                    ${this.answer}
+            <div class="game-question">
+                <div class="question">
+                    ${this.question}
                 </div>
             </div>
         `
     }
     // static get observedAttributes(){
-    //     return ['answer']
+    //     return ['question']
     // }
     // attributeChangedCallback(name, oldName, newName){
-    //     if(name==='answer'){
-    //         this.shadowDom.querySelector('.answer').innerHTML=newName
+    //     if(name==='question'){
+    //         this.shadowDom.querySelector('.question').innerHTML=newName
     //     }
     // }
 
 }
-window.customElements.define('game-answer',Answer)
+window.customElements.define('game-question',Question)

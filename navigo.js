@@ -26,7 +26,7 @@ router
         `
     }else if(screenName == 'login'){
         document.getElementById('game').innerHTML = `
-        <game-answer></game-answer>
+        <gameplay-screen></gameplay-screen>
         `
     }else if(screenName == 'main'){
         document.getElementById('game').innerHTML=`
