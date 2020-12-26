@@ -12,43 +12,45 @@ const style=`<style>
         grid-template-columns: repeat(2, 1fr);
         gap: 40px;   
     }
-    game-answer{
-        
-        
-    }
+    
 </style>`
 import {getDatas} from '../ultis.js'
 export class Gameplay extends HTMLElement{
     listQues1
     listQues2
     listQues3
+    order
+    score
     constructor(){
         super()
         this.listQues1= []
         this.listQues2= []
         this.listQues3= []
+        this.score=0
+        this.order=0
         this.shadowDom=this.attachShadow({mode:'open'})
-
     }
     async connectedCallback(){
         this.shadowDom.innerHTML=`
         ${style}
+        
         <div id="question-answer">
             
         </div>
+        <div id="score">0</div>
         `
         // lay du lieu ve
         this.listQues1 = await this.getMany(1)
         this.listQues2 = await this.getMany(2)
         this.listQues3 = await this.getMany(3)
-        this.showQuestion(0)
-       
+        this.showQuestion(0)  
+        
+         
     }
     async getMany(i){
         const res =await firebase.firestore().collection('questions').where('group','==',i).get()
-        const user=getDatas(res)
-        return user
-        
+        const questions=getDatas(res)
+        return questions   
     }
     showQuestion(index){
         const question = this.listQues1[index]
@@ -57,23 +59,25 @@ export class Gameplay extends HTMLElement{
                 <game-question id="game-question" question="${question.question}"></game-question>
             </div>
             <div id="all-answer">
-                    <game-answer id="a1" answer="${question.answers[0].content}" ></game-answer>
-                    <game-answer id="a2" answer="${question.answers[1].content}" ></game-answer>
-                    <game-answer id="a3" answer="${question.answers[2].content}" ></game-answer>
-                    <game-answer  id="a4" answer="${question.answers[3].content}"></game-answer> 
+                    <game-answer id="a1" answer="${question.answers[0].content}" isTrue="${question.answers[0].isTrue}"></game-answer>
+                    <game-answer id="a2" answer="${question.answers[1].content}" isTrue="${question.answers[1].isTrue}"></game-answer>
+                    <game-answer id="a3" answer="${question.answers[2].content}" isTrue="${question.answers[2].isTrue}"></game-answer>
+                    <game-answer  id="a4" answer="${question.answers[3].content}" isTrue="${question.answers[3].isTrue}"></game-answer> 
                 
             </div>
         `
-        // this.shadowDom.getElementById(id).setAttribute('question',question)
         this.shadowDom.querySelector('#all-answer').addEventListener('click', (e) => {
-           console.log(this.shadowDom.querySelector('#' + e.target.id).getAttribute('answer'))
-            // if(e.target.id=='a1')
-        })
+            console.log(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue'))
+             if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==1) this.loop()
+            
+         })
+        
     }
-    showAnswer(id,answer){
-        this.shadowDom.getElementById(id).setAttribute('answer',answer)
+    loop(){
+         this.showQuestion(this.order+1)
+         this.order++;
+         this.shadowDom.getElementById('score').innerHTML=`${this.score++}`
     }
-   
 }
 
 

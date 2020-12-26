@@ -19,11 +19,13 @@ export class Answer extends HTMLElement{
     }
     connectedCallback(){
         this.answer=this.getAttribute('answer')
+        this.isTrue=this.getAttribute('isTrue')
         this.shadowDom.innerHTML=`
         ${style}
             <div class="game-answer">
                 <div class="answer">
                     ${this.answer}
+                    
                 </div>
             </div>
         `
