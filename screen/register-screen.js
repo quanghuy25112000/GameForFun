@@ -94,7 +94,7 @@ export class RegisterScreen extends HTMLElement{
                         <input-wrapper class="input" id="gmail" type="text" placeholder="User Gmail"></input-wrapper>
                         <input-wrapper class="input" id="name" type="text" placeholder="User Name"></input-wrapper>
                         <input-wrapper class="input" id="password" type="password" placeholder="User Password"></input-wrapper>
-                        <input-wrapper class="input" id="confim-password" type="password" placeholder="Cofim Password"></input-wrapper>
+                        <input-wrapper class="input" id="confim-password" type="password" placeholder="Confim Password"></input-wrapper>
                         <button class="btn btn-5">Register</button>
                         <br>
                         <br>
@@ -107,6 +107,7 @@ export class RegisterScreen extends HTMLElement{
         const registerForm=this.shadowDom.getElementById('register-form');
         registerForm.addEventListener('submit',async(e)=>{
             e.preventDefault()
+            let ok=true;
             const gmail=this.shadowDom.getElementById('gmail').value
             const name=this.shadowDom.getElementById('name').value
             const password=this.shadowDom.getElementById('password').value
@@ -114,25 +115,46 @@ export class RegisterScreen extends HTMLElement{
             const confimpass=this.shadowDom.getElementById('confim-password').value
             if(gmail.trim()===''){
                 this.setError('gmail','must not be left blank')
+                ok=false
             }
             else this.setError('gmail','')
             if(name.trim()===''){
                 this.setError('name','must not be left blank')
+                ok=false
             }
             else this.setError('name','')
             if(password.trim()===''){
                 this.setError('password','must not be left blank')
+                ok=false
             }
             else this.setError('password','')
             if(confimpass.trim()===''){
                 this.setError('confim-password','must not be left blank')
+                ok=false
             }
             else this.setError('confim-password','')
             if(confimpass!==password){
                 this.setError('confim-password','password incorrect')
+                ok=false
             }
-            else this.setError('confim-pasword','')
-            console.log(gmail);
+           
+            const data={
+                name: name,
+                gmail: gmail,
+                password: password,
+                point:0,
+                new_point:0,
+            }
+            if(ok){
+                const check=await this.checkGmail(gmail)
+                if(check){
+                    alert('Gmail already avilable')
+                }
+                else{
+                    firebase.firestore().collection('user').add(data);
+                    alert('Register Success')
+                }
+            }
         })
         this.shadowDom.getElementById('redirect').addEventListener('click',()=>{
             router.navigate('login')
@@ -141,12 +163,11 @@ export class RegisterScreen extends HTMLElement{
     setError(id,message){
         this.shadowDom.getElementById(id).setAttribute('error',message)
     }
+    async checkGmail(gmail){
+        const res=await firebase.firestore().collection('user').where('gmail','==',gmail).get()
+        return !res.empty
+    }
 }
-async function getMany(){
-    const res =await firebase.firestore().collection('user').get()
-    const user=getDatas(res)
-   
-    console.log(user);
-}
+
 
 window.customElements.define('register-screen',RegisterScreen)
