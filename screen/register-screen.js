@@ -167,7 +167,13 @@ export class RegisterScreen extends HTMLElement{
 //     const res =await firebase.firestore().collection('user').get()
 //     const user=getDatas(res)
    
-//     console.log(user);
-// }
-// getMany()
+ HEAD
+   console.log(user);
+ }
+getMany()
+=======
+    console.log(user)
+}
+
+
 window.customElements.define('register-screen',RegisterScreen)

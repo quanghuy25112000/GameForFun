@@ -1,9 +1,9 @@
 const style=`<style>
     .game-answer{
         border: 2px solid black;
-        width:25%;
-        height:5vw;
-        
+        width:70%;
+        height:7vw;
+        margin:auto;
         
     }
     .answer{
@@ -19,15 +19,25 @@ export class Answer extends HTMLElement{
     }
     connectedCallback(){
         this.answer=this.getAttribute('answer')
+        this.isTrue=this.getAttribute('isTrue')
         this.shadowDom.innerHTML=`
         ${style}
             <div class="game-answer">
                 <div class="answer">
-                    hhhh
+                    ${this.answer}
+                    
                 </div>
             </div>
         `
     }
+    // static get observedAttributes(){
+    //     return ['answer']
+    // }
+    // attributeChangedCallback(name, oldName, newName){
+    //     if(name==='answer'){
+    //         this.shadowDom.querySelector('.answer').innerHTML=newName
+    //     }
+    // }
 
 }
 window.customElements.define('game-answer',Answer)

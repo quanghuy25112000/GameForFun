@@ -81,8 +81,8 @@ export class MainScreen extends HTMLElement{
                 <div id="img">
                     Are You Ready!
                 </div>
-                <div class="bt">
-                    <button class="btn btn-5">Start Game</button>
+                <div class="bt" >
+                    <button id="start-game" class="btn btn-5">Start Game</button>
                 </div>
                 <div class="bt">
                     <button class="btn btn-5">Create Room</button>
@@ -92,6 +92,10 @@ export class MainScreen extends HTMLElement{
             </div>
         </div>
         `
+        this.shadowDom.getElementById('start-game').addEventListener('click',(e)=>{
+            e.preventDefault()
+            router.navigate('mode')
+        })
     }
 }
 window.customElements.define('main-screen',MainScreen)
