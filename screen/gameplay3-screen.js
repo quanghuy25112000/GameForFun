@@ -15,16 +15,12 @@ const style=`<style>
     
 </style>`
 import {getDatas} from '../ultis.js'
-export class Gameplay extends HTMLElement{
-    listQues1
-    listQues2
+export class Gameplay3 extends HTMLElement{
     listQues3
     order
     score
     constructor(){
         super()
-        this.listQues1= []
-        this.listQues2= []
         this.listQues3= []
         this.score=0
         this.order=0
@@ -40,9 +36,8 @@ export class Gameplay extends HTMLElement{
         <div id="score">0</div>
         `
         // lay du lieu ve
-        this.listQues1 = await this.getMany(1)
-        this.listQues2 = await this.getMany(2)
         this.listQues3 = await this.getMany(3)
+        
         this.showQuestion(0)  
         
          
@@ -53,7 +48,7 @@ export class Gameplay extends HTMLElement{
         return questions   
     }
     showQuestion(index){
-        const question = this.listQues1[index]
+        const question = this.listQues3[index]
         this.shadowDom.querySelector('#question-answer').innerHTML = `
         <div id="question">
                 <game-question id="game-question" question="${question.question}"></game-question>
@@ -68,7 +63,10 @@ export class Gameplay extends HTMLElement{
         `
         this.shadowDom.querySelector('#all-answer').addEventListener('click', (e) => {
             console.log(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue'))
-             if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==1) this.loop()
+             if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==1) {
+                this.loop()
+                
+             }
             
          })
         
@@ -76,10 +74,8 @@ export class Gameplay extends HTMLElement{
     loop(){
          this.showQuestion(this.order+1)
          this.order++;
-         this.shadowDom.getElementById('score').innerHTML=`${this.score++}`
+         this.score++
+         this.shadowDom.getElementById('score').innerHTML=`${this.score}`
     }
 }
-
-
-
-window.customElements.define('gameplay-screen',Gameplay)
+window.customElements.define('gameplay3-screen',Gameplay3)

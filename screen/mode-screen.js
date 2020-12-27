@@ -67,7 +67,7 @@ const style=`<style>
   }
 </style>`
 import '../component/background.js'
-export class MainScreen extends HTMLElement{
+export class ModeScreen extends HTMLElement{
     constructor(){
         super()
         this.shadowDom=this.attachShadow({mode:'open'})
@@ -79,23 +79,31 @@ export class MainScreen extends HTMLElement{
             <div class="title">Game For Fun</div>
             <div id="main">
                 <div id="img">
-                    Are You Ready!
-                </div>
-                <div class="bt" >
-                    <button id="start-game" class="btn btn-5">Start Game</button>
+                    Select Mode!
                 </div>
                 <div class="bt">
-                    <button class="btn btn-5">Create Room</button>
+                    <button id="easy" class="btn btn-5">Easy</button>
+                </div>
+                <div class="bt">
+                    <button id="hard" class="btn btn-5">Hard</button>
                 </div>
                 
-                    <div class="bt"><button class="btn btn-5">About Us</button></div>
+                    <div class="bt"><button id="difficult" class="btn btn-5">Difficult</button></div>
             </div>
         </div>
         `
-        this.shadowDom.getElementById('start-game').addEventListener('click',(e)=>{
+        this.shadowDom.getElementById('easy').addEventListener('click',(e)=>{
             e.preventDefault()
-            router.navigate('mode')
+            router.navigate('easy')
+        })
+        this.shadowDom.getElementById('hard').addEventListener('click',(e)=>{
+            e.preventDefault()
+            router.navigate('hard')
+        })
+        this.shadowDom.getElementById('difficult').addEventListener('click',(e)=>{
+            e.preventDefault()
+            router.navigate('difficult')
         })
     }
 }
-window.customElements.define('main-screen',MainScreen)
+window.customElements.define('mode-screen',ModeScreen)
