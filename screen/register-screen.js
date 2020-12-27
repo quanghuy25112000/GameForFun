@@ -113,25 +113,25 @@ export class RegisterScreen extends HTMLElement{
             
             const confimpass=this.shadowDom.getElementById('confim-password').value
             if(gmail.trim()===''){
-                this.setError('gmail','must not be left blank')
+                this.setError('gmail','Must Not Be Left Blank')
             }
             else this.setError('gmail','')
             if(name.trim()===''){
-                this.setError('name','must not be left blank')
+                this.setError('name','Must Not Be Left Blank')
             }
             else this.setError('name','')
             if(password.trim()===''){
-                this.setError('password','must not be left blank')
+                this.setError('password','Must Not Be Left Blank')
             }
             else this.setError('password','')
             if(confimpass.trim()===''){
-                this.setError('confim-password','must not be left blank')
+                this.setError('confim-password','Must Not Be Left Blank')
             }
             else this.setError('confim-password','')
             if(confimpass!==password){
-                this.setError('confim-password','password incorrect')
+                this.setError('confim-password','Password Incorrect')
             }
-            else this.setError('confim-pasword','')
+            else this.setError('Confim-Pasword','')
             console.log(gmail);
         })
         this.shadowDom.getElementById('redirect').addEventListener('click',()=>{
