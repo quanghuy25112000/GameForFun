@@ -1,10 +1,13 @@
 const style=`<style>
     .game-answer{
-        border: 2px solid black;
+        border: 2px solid red;
         width:70%;
         height:7vw;
         margin:auto;
-        
+        font-family: 'Chakra Petch', sans-serif;
+        box-shadow: 0 0 20px;
+        cursor: pointer;
+        color:#d0d007;
     }
     .answer{
         text-align:center;
@@ -25,7 +28,6 @@ export class Answer extends HTMLElement{
             <div class="game-answer">
                 <div class="answer">
                     ${this.answer}
-                    
                 </div>
             </div>
         `

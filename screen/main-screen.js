@@ -8,7 +8,7 @@ const style=`<style>
 }
 #main{
     border: 2px solid black outset;
-    box-shadow: 0px 0px 20px #ac0c00;
+    box-shadow: 0px 0px 25px #ac0c00;
     height:500px;
     width:25vw;
     margin:auto;

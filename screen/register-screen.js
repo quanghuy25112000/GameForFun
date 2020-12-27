@@ -8,7 +8,7 @@ const style=`<style>
 }
 #main{
     border: 2px solid black outset;
-    box-shadow: 0px 0px 20px #ac0c00;
+    box-shadow: 0px 0px 25px #ac0c00;
     height:500px;
     width:25vw;
     margin:auto;
@@ -54,7 +54,7 @@ const style=`<style>
   
   .btn-5:hover {
     border: 1px solid;
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
+    box-shadow: inset 0 0 30px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
     outline-color: rgba(255, 255, 255, 0);
     outline-offset: 15px;
     text-shadow: 1px 1px 2px #427388; 
@@ -166,14 +166,6 @@ export class RegisterScreen extends HTMLElement{
 // async function getMany(){
 //     const res =await firebase.firestore().collection('user').get()
 //     const user=getDatas(res)
-   
- HEAD
-   console.log(user);
- }
-getMany()
-=======
-    console.log(user)
-}
 
 
 window.customElements.define('register-screen',RegisterScreen)
