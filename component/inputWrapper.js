@@ -40,9 +40,9 @@ export class InputWrapper extends HTMLElement{
         const value=this.shadowDom.getElementById('input-main').value
         return value
     }
-    get value(){
-        const value=this.shadowDom.getElementById("input-main").value
-        return value
-    }
+    // get value(){
+    //     const value=this.shadowDom.getElementById("input-main").value
+    //     return value
+    // }
 }
 window.customElements.define('input-wrapper',InputWrapper)

@@ -111,29 +111,46 @@ export class RegisterScreen extends HTMLElement{
             const gmail=this.shadowDom.getElementById('gmail').value
             const name=this.shadowDom.getElementById('name').value
             const password=this.shadowDom.getElementById('password').value
-            
             const confimpass=this.shadowDom.getElementById('confim-password').value
+            let isValid = true;
             if(gmail.trim()===''){
+<<<<<<< HEAD
                 this.setError('gmail','must not be left blank')
                 ok=false
+=======
+                isValid = false
+                this.setError('gmail','Must Not Be Left Blank')
+>>>>>>> 0a601c1b0726348fe764f42bdadabcee014847ba
             }
-            else this.setError('gmail','')
             if(name.trim()===''){
+<<<<<<< HEAD
                 this.setError('name','must not be left blank')
                 ok=false
+=======
+                isValid = false
+                this.setError('name','Must Not Be Left Blank')
+>>>>>>> 0a601c1b0726348fe764f42bdadabcee014847ba
             }
-            else this.setError('name','')
             if(password.trim()===''){
+<<<<<<< HEAD
                 this.setError('password','must not be left blank')
                 ok=false
+=======
+                isValid = false
+                this.setError('password','Must Not Be Left Blank')
+>>>>>>> 0a601c1b0726348fe764f42bdadabcee014847ba
             }
-            else this.setError('password','')
             if(confimpass.trim()===''){
+<<<<<<< HEAD
                 this.setError('confim-password','must not be left blank')
                 ok=false
+=======
+                isValid = false
+                this.setError('confim-password','Must Not Be Left Blank')
+>>>>>>> 0a601c1b0726348fe764f42bdadabcee014847ba
             }
-            else this.setError('confim-password','')
             if(confimpass!==password){
+<<<<<<< HEAD
                 this.setError('confim-password','password incorrect')
                 ok=false
             }
@@ -155,6 +172,28 @@ export class RegisterScreen extends HTMLElement{
                     alert('Register Success')
                 }
             }
+=======
+                isValid = false
+                this.setError('confim-password','Password Incorrect')
+            }
+            if (!isValid) {
+                return
+            }
+            const user = {
+                fullName: name,
+                gmail: gmail,
+                password: CryptoJS.MD5(password).toString()
+              }
+              // nếu email đã tồn tại rồi thì trả ra true
+              const check = await this.checkEmailExist(gmail)
+              if (check) {
+                alert('Email đã được đăng ký')
+              } else {
+                firebase.firestore().collection('users').add(user)
+                alert('Đăng ký thành công')
+                router.navigate('/login')
+              }
+>>>>>>> 0a601c1b0726348fe764f42bdadabcee014847ba
         })
         this.shadowDom.getElementById('redirect').addEventListener('click',()=>{
             router.navigate('login')
@@ -163,11 +202,32 @@ export class RegisterScreen extends HTMLElement{
     setError(id,message){
         this.shadowDom.getElementById(id).setAttribute('error',message)
     }
+<<<<<<< HEAD
     async checkGmail(gmail){
         const res=await firebase.firestore().collection('user').where('gmail','==',gmail).get()
         return !res.empty
     }
 }
+
+=======
+    async checkEmailExist(gmail) {
+        const res = await firebase.firestore().collection('users')
+         .where('email', '==' , gmail).get()
+         return !res.empty
+    }
+}
+// async function getMany(){
+//     const res =await firebase.firestore().collection('user').get()
+//     const user=getDatas(res)
+   
+ HEAD
+   console.log(user);
+ }
+getMany()
+=======
+    console.log(user)
+}
+>>>>>>> 0a601c1b0726348fe764f42bdadabcee014847ba
 
 
 window.customElements.define('register-screen',RegisterScreen)
