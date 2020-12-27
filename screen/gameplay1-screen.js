@@ -47,26 +47,33 @@ export class Gameplay1 extends HTMLElement{
     listQues1
     order
     score
+    ok
     constructor(){
         super()
         this.listQues1= []
         this.score=0
         this.order=0
+        this.ok=1;
         this.shadowDom=this.attachShadow({mode:'open'})
     }
     async connectedCallback(){
-        this.shadowDom.innerHTML=`
-        ${style}
         
         <div id="question-answer"></div>
+
+            this.shadowDom.innerHTML=`
+        ${style}
+        <div id="all">
+        <div id="question-answer">
+            
+        </div>
         <div id="score">Point: 0</div>
+        </div>
         `
         // lay du lieu ve
         this.listQues1 = await this.getMany(1)
         
-        this.showQuestion(0)  
-        
-         
+        this.showQuestion(0) 
+
     }
     async getMany(i){
         const res =await firebase.firestore().collection('questions').where('group','==',i).get()
@@ -90,16 +97,25 @@ export class Gameplay1 extends HTMLElement{
                     </div>
                 </div>
             </div>
+            
         `
         myFunction();
         this.shadowDom.querySelector('#all-answer').addEventListener('click', (e) => {        
-             if(this.order<this.listQues1.length-1){
+             if(this.order<this.listQues1.length){
                 if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==1) {
                     this.loop()
+                   
+                 }
+                 else if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==0){
+                    this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
+                    console.log(this.score);
+                    alert('jj')
                  }
              }
              else{
-                 router.navigate('login')
+                this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
+                alert('end')
+                            
              }
             
          })
@@ -111,5 +127,7 @@ export class Gameplay1 extends HTMLElement{
          this.score++
          this.shadowDom.getElementById('score').innerHTML=`Point: ${this.score}`
     }
+
 }
+
 window.customElements.define('gameplay1-screen',Gameplay1)

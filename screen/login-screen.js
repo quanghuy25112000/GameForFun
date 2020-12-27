@@ -74,7 +74,7 @@ const style=`<style>
 }
 </style>`
 import '../component/inputWrapper.js'
-import {getDatas} from '../ultis.js'
+import {getDatas,saveToLocalStorage} from '../ultis.js'
 export class LoginScreen extends HTMLElement{
     constructor(){
         super()
@@ -91,7 +91,7 @@ export class LoginScreen extends HTMLElement{
                 </div>
                 <div class="login-container">
                     <form id="login-form">
-                        <input-wrapper class="input" id="name" type="text" placeholder="User name"></input-wrapper>
+                        <input-wrapper class="input" id="gmail" type="text" placeholder="User Gmail"></input-wrapper>
                         <input-wrapper class="input" id="password" type="password" placeholder="User password"></input-wrapper>
                 
                         <button class="btn btn-5">Login</button>
@@ -103,21 +103,40 @@ export class LoginScreen extends HTMLElement{
             </div>
         </div>
         `
-        this.shadowDom.getElementById('login-form').addEventListener('submit',(e)=>{
+        this.shadowDom.getElementById('login-form').addEventListener('submit',async (e)=>{
             e.preventDefault()
-            router.navigate('main')
+            let ok=true;
+            const gmail=this.shadowDom.getElementById('gmail').value
+            const password=this.shadowDom.getElementById('password').value
+            if(gmail.trim()===''){
+                this.setError('gmail','must not be left blank')
+                ok=false
+            }else this.setError('gmail','')
+            if(password.trim()===''){
+                this.setError('password','must not be left blank')
+                ok=false
+            }else this.setError('password','')
+            if(ok){
+                const check=await this.checkGmail(gmail,password)
+                const user=await firebase.firestore().collection('user').where('gmail','==',gmail).where('password','==',password).get()
+                if(!check){
+                    saveToLocalStorage('currentUser',getDatas(user)[0])
+                    router.navigate('main')
+                }else alert('Gmail or Password is not correct')
+            }
         })
         this.shadowDom.getElementById('redirect').addEventListener('click',()=>{
             router.navigate('register')
         })
     }
-    
+    setError(id,message){
+        this.shadowDom.getElementById(id).setAttribute('error',message)
+    }
+    async checkGmail(gmailClient,passwordClient){
+        const res=await firebase.firestore().collection('user').where('gmail','==',gmailClient).where('password','==',passwordClient).get()
+        return res.empty
+    }
 }
-async function getMany(){
-    const res =await firebase.firestore().collection('user').get()
-    const user=getDatas(res)
-   
-    console.log(user);
-}
+
 
 window.customElements.define('login-screen',LoginScreen)

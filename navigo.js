@@ -2,7 +2,7 @@ var root = null;
 var useHash = true; // Defaults to: false
 var hash = '#!'; // Defaults to: '#'
 var router = new Navigo(root, useHash, hash);
-
+import {getItemLocalStorage} from './ultis.js'
 router
   .on({
     'login': function () {
@@ -11,8 +11,15 @@ router
     'register': function () {
       redirect('register')
     },
-    'main': function () {
+    // 'main': function () {
+    //   redirect('main')
+    // },
+    'main':async function () {
+      const check=await checkAuthen()
+      if(check){
         redirect('main')
+      }
+      else router.navigate('login')
       },
     'mode': function(){
       redirect(`mode`)
@@ -25,6 +32,9 @@ router
     },
     'difficult': function(){
       redirect(`difficult`)
+    },
+    'end': function(){
+      redirect(`end`)
     },
     '*': function () {
      router.navigate('login')
@@ -65,12 +75,17 @@ router
           <gameplay3-screen></gameplay3-screen>
       `
     }
+    else if(screenName == 'end'){
+      document.getElementById('game').innerHTML=`
+          <end-screen></end-screen>
+      `
+    }
 }
 
-async function chekAuthen(){
+async function checkAuthen(){
     const user = getItemLocalStorage('currentUser');
     if(user){
-        const res = await firebase.firestore().collection('user').where('email','==',user.email).where('pass','==',user.pass).get();
+        const res = await firebase.firestore().collection('user').where('gmail','==',user.gmail).where('password','==',user.password).get();
             if(res.empty ) {
                 return false
             } else {
@@ -78,7 +93,7 @@ async function chekAuthen(){
             }
     }
     else {
-                return false
+         return false
     }
 }
 window.router=router
