@@ -1,5 +1,6 @@
 import './screen/main-screen.js'
 import './component/answer.js'
+import './component/inputWrapper.js'
 import './screen/login-screen.js'
 import './screen/register-screen.js'
 import './navigo.js'

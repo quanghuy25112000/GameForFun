@@ -110,29 +110,45 @@ export class RegisterScreen extends HTMLElement{
             const gmail=this.shadowDom.getElementById('gmail').value
             const name=this.shadowDom.getElementById('name').value
             const password=this.shadowDom.getElementById('password').value
-            
             const confimpass=this.shadowDom.getElementById('confim-password').value
+            let isValid = true;
             if(gmail.trim()===''){
+                isValid = false
                 this.setError('gmail','Must Not Be Left Blank')
             }
-            else this.setError('gmail','')
             if(name.trim()===''){
+                isValid = false
                 this.setError('name','Must Not Be Left Blank')
             }
-            else this.setError('name','')
             if(password.trim()===''){
+                isValid = false
                 this.setError('password','Must Not Be Left Blank')
             }
-            else this.setError('password','')
             if(confimpass.trim()===''){
+                isValid = false
                 this.setError('confim-password','Must Not Be Left Blank')
             }
-            else this.setError('confim-password','')
             if(confimpass!==password){
+                isValid = false
                 this.setError('confim-password','Password Incorrect')
             }
-            else this.setError('Confim-Pasword','')
-            console.log(gmail);
+            if (!isValid) {
+                return
+            }
+            const user = {
+                fullName: name,
+                gmail: gmail,
+                password: CryptoJS.MD5(password).toString()
+              }
+              // nếu email đã tồn tại rồi thì trả ra true
+              const check = await this.checkEmailExist(gmail)
+              if (check) {
+                alert('Email đã được đăng ký')
+              } else {
+                firebase.firestore().collection('users').add(user)
+                alert('Đăng ký thành công')
+                router.navigate('/login')
+              }
         })
         this.shadowDom.getElementById('redirect').addEventListener('click',()=>{
             router.navigate('login')
@@ -141,12 +157,17 @@ export class RegisterScreen extends HTMLElement{
     setError(id,message){
         this.shadowDom.getElementById(id).setAttribute('error',message)
     }
+    async checkEmailExist(gmail) {
+        const res = await firebase.firestore().collection('users')
+         .where('email', '==' , gmail).get()
+         return !res.empty
+    }
 }
-async function getMany(){
-    const res =await firebase.firestore().collection('user').get()
-    const user=getDatas(res)
+// async function getMany(){
+//     const res =await firebase.firestore().collection('user').get()
+//     const user=getDatas(res)
    
-    console.log(user);
-}
-getMany()
+//     console.log(user);
+// }
+// getMany()
 window.customElements.define('register-screen',RegisterScreen)
