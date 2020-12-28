@@ -17,7 +17,7 @@ const style=`<style>
         width: 50vw;
         height: 70vh;
         margin: auto;
-        margin-top: 6vh;
+        margin-top: -5vh;
         background-color: #272525;
     }
     
@@ -26,7 +26,6 @@ const style=`<style>
         line-height: 6.5vh;
     }
     #all-answer{
-        
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 40px; 
@@ -39,6 +38,8 @@ const style=`<style>
         color:yellow;
         margin-top:10vh;
         padding:25px 0 0 25px;
+        font-size: 20px;
+        font-family: 'Chakra Petch', sans-serif;
     }
     
 </style>`
@@ -84,7 +85,7 @@ export class Gameplay1 extends HTMLElement{
             <div class="home">
                 <div class="title">Game For Fun</div>
                 <div class="form">
-                <div id="score">Point: 0</div>
+                    <div id="score">Point: 0</div>
                     <div id="question">
                         <game-question id="game-question" question="${question.question}"></game-question>
                     </div>

@@ -17,7 +17,7 @@ const style=`<style>
         width: 50vw;
         height: 70vh;
         margin: auto;
-        margin-top: 6vh;
+        margin-top: -5vh;
         background-color: #272525;
     }
     
@@ -39,6 +39,8 @@ const style=`<style>
         color:yellow;
         margin-top:10vh;
         padding:25px 0 0 25px;
+        font-size: 20px;
+        font-family: 'Chakra Petch', sans-serif;
     }
     
 </style>`
