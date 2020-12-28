@@ -69,7 +69,7 @@ export class Gameplay1 extends HTMLElement{
         // lay du lieu ve
         this.listQues1 = await this.getMany(1)
         
-        this.showQuestion(0) 
+        this.showQuestion(this.order) 
 
     }
     async getMany(i){
@@ -103,7 +103,9 @@ export class Gameplay1 extends HTMLElement{
            
                 if(this.order<this.listQues1.length){  
                 if(this.shadowDom.querySelector('#' +e.target.id).getAttribute('isTrue')==1) {
+                    this.order++
                     this.loop()
+                    console.log(this.listQues1[5]);
                    
                  }
                  else if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==0){
@@ -113,6 +115,7 @@ export class Gameplay1 extends HTMLElement{
                     // console.log(getItemLocalStorage('currentUser').id);
                     // let a=await this.updatePoint(getItemLocalStorage('currentUser').gmail);
                     // console.log(a);
+                    
                  }
              }
              else{
@@ -126,8 +129,9 @@ export class Gameplay1 extends HTMLElement{
         
     }
     loop(){
-         this.showQuestion(this.order+1)
-         this.order++;
+        
+         this.showQuestion(this.order)
+         
          this.score++
          this.shadowDom.getElementById('score').innerHTML=`Point: ${this.score}`
          console.log(this.listQues1);
