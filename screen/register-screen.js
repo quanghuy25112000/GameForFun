@@ -9,7 +9,7 @@ const style=`<style>
 #main{
     border: 2px solid black outset;
     box-shadow: 0px 0px 20px #ac0c00;
-    height:500px;
+    height:66vh;
     width:25vw;
     margin:auto;
     padding:40px;
@@ -24,7 +24,6 @@ const style=`<style>
     text-align: center;
 }
 #img{
-    margin-bottom:17px;
     font-family: 'Ewert', cursive;
     text-align:center;
     color: #fd0000;
@@ -115,7 +114,7 @@ export class RegisterScreen extends HTMLElement{
             const confimpass=this.shadowDom.getElementById('confim-password').value
             
             if(gmail.trim()===''){
-                this.setError('gmail','Must not be left blank')
+                this.setError('gmail','Must Not Be Left Blank')
                 ok=false
             }else {
                 let reg=/^[a-zA-Z0-9]{1,}@gmail.com$/
@@ -126,31 +125,31 @@ export class RegisterScreen extends HTMLElement{
                 else this.setError('gmail','')
             }
             if(name.trim()===''){
-                this.setError('name','Must not be left blank')
+                this.setError('name','Must Not Be Left Blank')
                 ok=false
             }else {
                 if(!reg1.test(name)){
-                    this.setError('name','may not contain special characters')
+                    this.setError('name','May Not Contain Special Characters')
                     ok=false
                 }
                 else this.setError('name','')
             }
             if(password.trim()===''){
-                this.setError('password','Must not be left blank')
+                this.setError('password','Must Not Be Left Blank')
                 ok=false
             }else{
                 if(!reg1.test(password)){
-                    this.setError('password','may not contain special characters')
+                    this.setError('password','May Not Contain Special Characters')
                     ok=false
                 }
                 else this.setError('password','')
             }
             if(confimpass.trim()===''){
-                this.setError('confim-password','Must not be left blank')
+                this.setError('confim-password','Must Not Be Left Blank')
                 ok=false
             }else this.setError('confim-password','')
             if(confimpass!==password){
-                this.setError('confim-password','Password incorrect')
+                this.setError('confim-password','Password Incorrect')
                 ok=false
             }
             

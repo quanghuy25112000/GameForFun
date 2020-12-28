@@ -62,9 +62,7 @@ export class Gameplay1 extends HTMLElement{
 
         this.shadowDom.innerHTML=`
         ${style}
-        <div id="all">
         <div id="question-answer">
-            
         `
         // lay du lieu ve
         this.listQues1 = await this.getMany(1)
