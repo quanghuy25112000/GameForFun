@@ -37,8 +37,8 @@ const style=`<style>
     #game-question{
         box-shadow: 0 0 70px red;
     }
-    #a1{
-        
+    .score{
+        color: white;
     }
     
 </style>`
@@ -62,11 +62,8 @@ export class Gameplay1 extends HTMLElement{
 
         this.shadowDom.innerHTML=`
         ${style}
-        <div id="all">
         <div id="question-answer">
-            
-        </div>
-        <div id="score">Point: 0</div>
+            <div id="score">Point: 0</div>
         </div>
         `
         // lay du lieu ve
