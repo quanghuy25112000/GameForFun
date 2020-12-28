@@ -44,7 +44,7 @@ router
   function redirect(screenName){
     if(screenName == 'register'){
         document.getElementById('game').innerHTML = `
-            <gameplay1-screen></gameplay1-screen>
+            <register-screen></register-screen>
         `
     }else if(screenName == 'login'){
         document.getElementById('game').innerHTML = `

@@ -30,7 +30,7 @@ const style=`<style>
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 40px; 
-        line-height:14vh; 
+         
     }
     #game-question{
         box-shadow: 0 0 70px red;
@@ -42,7 +42,7 @@ const style=`<style>
     }
     
 </style>`
-import {getDatas} from '../ultis.js'
+import {getDatas,getItemLocalStorage} from '../ultis.js'
 export class Gameplay1 extends HTMLElement{
     listQues1
     order
@@ -96,16 +96,21 @@ export class Gameplay1 extends HTMLElement{
             </div>
             
         `
-        this.shadowDom.querySelector('#all-answer').addEventListener('click', (e) => {        
-             if(this.order<this.listQues1.length){
-                if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==1) {
+        
+        this.shadowDom.querySelector('#all-answer').addEventListener('click',(e) => {        
+           
+                if(this.order<this.listQues1.length){  
+                if(this.shadowDom.querySelector('#' +e.target.id).getAttribute('isTrue')==1) {
                     this.loop()
                    
                  }
                  else if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==0){
                     this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
-                    console.log(this.score);
-                    alert('jj')
+                    if(this.score>getItemLocalStorage('currentUser').point) this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score)
+                    // console.log(this.score);
+                    // console.log(getItemLocalStorage('currentUser').id);
+                    // let a=await this.updatePoint(getItemLocalStorage('currentUser').gmail);
+                    // console.log(a);
                  }
              }
              else{
@@ -115,6 +120,7 @@ export class Gameplay1 extends HTMLElement{
              }
             
          })
+         
         
     }
     loop(){
@@ -122,6 +128,12 @@ export class Gameplay1 extends HTMLElement{
          this.order++;
          this.score++
          this.shadowDom.getElementById('score').innerHTML=`Point: ${this.score}`
+         console.log(this.listQues1);
+    }
+    async updatePoint(gmail,point){
+        const res=await firebase.firestore().collection('user').where('gmail','==',gmail).get()
+        const user=getDatas(res)
+        firebase.firestore().collection('user').doc(user[0].id).update({'point':point})
     }
 
 }

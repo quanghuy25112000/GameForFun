@@ -108,32 +108,53 @@ export class RegisterScreen extends HTMLElement{
         registerForm.addEventListener('submit',async(e)=>{
             e.preventDefault()
             let ok=true;
+            let reg1=/^[a-zA-Z0-9]{1,}$/
             const gmail=this.shadowDom.getElementById('gmail').value
             const name=this.shadowDom.getElementById('name').value
             const password=this.shadowDom.getElementById('password').value
             const confimpass=this.shadowDom.getElementById('confim-password').value
             
             if(gmail.trim()===''){
-                this.setError('gmail','must not be left blank')
+                this.setError('gmail','Must not be left blank')
                 ok=false
+            }else {
+                let reg=/^[a-zA-Z0-9]{1,}@gmail.com$/
+                if(!reg.test(gmail)){
+                    this.setError('gmail','Malformed, For example Abc123@gmail.com')
+                    ok=false
+                }
+                else this.setError('gmail','')
             }
             if(name.trim()===''){
-                this.setError('name','must not be left blank')
+                this.setError('name','Must not be left blank')
                 ok=false
+            }else {
+                if(!reg1.test(name)){
+                    this.setError('name','may not contain special characters')
+                    ok=false
+                }
+                else this.setError('name','')
             }
             if(password.trim()===''){
-                this.setError('password','must not be left blank')
+                this.setError('password','Must not be left blank')
                 ok=false
+            }else{
+                if(!reg1.test(password)){
+                    this.setError('password','may not contain special characters')
+                    ok=false
+                }
+                else this.setError('password','')
             }
             if(confimpass.trim()===''){
-                this.setError('confim-password','must not be left blank')
+                this.setError('confim-password','Must not be left blank')
                 ok=false
-            }
+            }else this.setError('confim-password','')
             if(confimpass!==password){
-                this.setError('confim-password','password incorrect')
+                this.setError('confim-password','Password incorrect')
                 ok=false
             }
-           
+            
+
             const data={
                 name: name,
                 gmail: gmail,

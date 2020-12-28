@@ -17,7 +17,14 @@ const style=`<style>
         font-family: 'Chakra Petch', sans-serif;
         color:yellow;
         background-color:black;
+        
     }
+    .answer:hover,
+    .answer:focus {
+        animation: pulse 1s;
+        box-shadow: 0 0 0 2em rgba(#fff,0);  
+    }
+    
 </style>`
 export class Answer extends HTMLElement{
     
