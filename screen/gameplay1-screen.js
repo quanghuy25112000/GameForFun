@@ -100,12 +100,12 @@ export class Gameplay1 extends HTMLElement{
         `
         
         this.shadowDom.querySelector('#all-answer').addEventListener('click',(e) => {        
-           
-                if(this.order<this.listQues1.length){  
-                if(this.shadowDom.querySelector('#' +e.target.id).getAttribute('isTrue')==1) {
+           const id=e.target.id
+                setTimeout(()=>{if(this.order<this.listQues1.length-1){  
+                if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
                     this.order++
                     this.loop()
-                    console.log(this.listQues1[5]);
+                    
                    
                  }
                  else if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==0){
@@ -119,10 +119,10 @@ export class Gameplay1 extends HTMLElement{
                  }
              }
              else{
-                this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
+                this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score+1}"></end-screen>`
                 alert('end')
                             
-             }
+             }},3000)
             
          })
          

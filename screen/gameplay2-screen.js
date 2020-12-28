@@ -30,7 +30,7 @@ const style=`<style>
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 40px; 
-        line-height:14vh; 
+         
     }
     #game-question{
         box-shadow: 0 0 70px red;
@@ -69,7 +69,7 @@ export class Gameplay2 extends HTMLElement{
         // lay du lieu ve
         this.listQues1 = await this.getMany(2)
         
-        this.showQuestion(0) 
+        this.showQuestion(this.order) 
 
     }
     async getMany(i){
@@ -98,10 +98,15 @@ export class Gameplay2 extends HTMLElement{
             </div>
             
         `
-        this.shadowDom.querySelector('#all-answer').addEventListener('click',async (e) => {        
-             if(this.order<this.listQues1.length){
-                if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==1) {
+        
+        this.shadowDom.querySelector('#all-answer').addEventListener('click',(e) => {        
+            const id=e.target.id
+                setTimeout(()=>{
+                if(this.order<this.listQues1.length-1){  
+                if(this.shadowDom.querySelector('#' +e.target.id).getAttribute('isTrue')==1) {
+                    this.order++
                     this.loop()
+                    
                    
                  }
                  else if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==0){
@@ -111,22 +116,26 @@ export class Gameplay2 extends HTMLElement{
                     // console.log(getItemLocalStorage('currentUser').id);
                     // let a=await this.updatePoint(getItemLocalStorage('currentUser').gmail);
                     // console.log(a);
+                    
                  }
              }
              else{
-                this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
-                alert('end')
+                this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score+5}"></end-screen>`
+                this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score+5)
                             
-             }
+             }},3000)
             
          })
+         
         
     }
     loop(){
-         this.showQuestion(this.order+1)
-         this.order++;
-         this.score++
+        
+         this.showQuestion(this.order)
+         
+         this.score+=5
          this.shadowDom.getElementById('score').innerHTML=`Point: ${this.score}`
+         console.log(this.listQues1);
     }
     async updatePoint(gmail,point){
         const res=await firebase.firestore().collection('user').where('gmail','==',gmail).get()
