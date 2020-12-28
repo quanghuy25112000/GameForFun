@@ -67,7 +67,7 @@ export class Gameplay1 extends HTMLElement{
         // lay du lieu ve
         this.listQues1 = await this.getMany(1)
         
-        this.showQuestion(0) 
+        this.showQuestion(this.order) 
 
     }
     async getMany(i){
@@ -98,10 +98,12 @@ export class Gameplay1 extends HTMLElement{
         `
         
         this.shadowDom.querySelector('#all-answer').addEventListener('click',(e) => {        
-           
-                if(this.order<this.listQues1.length){  
-                if(this.shadowDom.querySelector('#' +e.target.id).getAttribute('isTrue')==1) {
+           const id=e.target.id
+                setTimeout(()=>{if(this.order<this.listQues1.length-1){  
+                if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
+                    this.order++
                     this.loop()
+                    
                    
                  }
                  else if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==0){
@@ -111,21 +113,23 @@ export class Gameplay1 extends HTMLElement{
                     // console.log(getItemLocalStorage('currentUser').id);
                     // let a=await this.updatePoint(getItemLocalStorage('currentUser').gmail);
                     // console.log(a);
+                    
                  }
              }
              else{
-                this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
+                this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score+1}"></end-screen>`
                 alert('end')
                             
-             }
+             }},3000)
             
          })
          
         
     }
     loop(){
-         this.showQuestion(this.order+1)
-         this.order++;
+        
+         this.showQuestion(this.order)
+         
          this.score++
          this.shadowDom.getElementById('score').innerHTML=`Point: ${this.score}`
          console.log(this.listQues1);
