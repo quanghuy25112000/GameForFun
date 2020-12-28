@@ -26,7 +26,6 @@ const style=`<style>
         line-height: 6.5vh;
     }
     #all-answer{
-        
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 40px; 
@@ -39,6 +38,8 @@ const style=`<style>
         color:yellow;
         margin-top:10vh;
         padding:25px 0 0 25px;
+        font-size: 20px;
+        font-family: 'Chakra Petch', sans-serif;
     }
     
 </style>`

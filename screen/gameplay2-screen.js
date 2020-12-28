@@ -39,6 +39,8 @@ const style=`<style>
         color:yellow;
         margin-top:10vh;
         padding:25px 0 0 25px;
+        font-size: 20px;
+        font-family: 'Chakra Petch', sans-serif;
     }
     
 </style>`
