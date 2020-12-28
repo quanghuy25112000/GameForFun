@@ -11,7 +11,12 @@ const style=`<style>
     }
     .answer{
         text-align:center;
-        
+        width:100%;
+        height:100%;
+        cursor:pointer; 
+        font-family: 'Chakra Petch', sans-serif;
+        color:yellow;
+        background-color:black;
     }
 </style>`
 export class Answer extends HTMLElement{
@@ -26,9 +31,9 @@ export class Answer extends HTMLElement{
         this.shadowDom.innerHTML=`
         ${style}
             <div class="game-answer">
-                <div class="answer">
+                <button class="answer">
                     ${this.answer}
-                </div>
+                </button>
             </div>
         `
     }
