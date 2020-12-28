@@ -17,7 +17,7 @@ const style=`<style>
         width: 50vw;
         height: 70vh;
         margin: auto;
-        margin-top: 6vh;
+        margin-top: -5vh;
         background-color: #272525;
     }
     

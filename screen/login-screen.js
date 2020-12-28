@@ -109,11 +109,11 @@ export class LoginScreen extends HTMLElement{
             const gmail=this.shadowDom.getElementById('gmail').value
             const password=this.shadowDom.getElementById('password').value
             if(gmail.trim()===''){
-                this.setError('gmail','must not be left blank')
+                this.setError('gmail','Must Not Be Left Blank')
                 ok=false
             }else this.setError('gmail','')
             if(password.trim()===''){
-                this.setError('password','must not be left blank')
+                this.setError('password','Must Not Be Left Blank')
                 ok=false
             }else this.setError('password','')
             if(ok){

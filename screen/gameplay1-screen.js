@@ -17,7 +17,7 @@ const style=`<style>
         width: 50vw;
         height: 70vh;
         margin: auto;
-        margin-top: 6vh;
+        margin-top: -5vh;
         background-color: #272525;
     }
     
@@ -81,7 +81,7 @@ export class Gameplay1 extends HTMLElement{
             <div class="home">
                 <div class="title">Game For Fun</div>
                 <div class="form">
-                <div id="score">Point: 0</div>
+                    <div id="score">Point: 0</div>
                     <div id="question">
                         <game-question id="game-question" question="${question.question}"></game-question>
                     </div>
