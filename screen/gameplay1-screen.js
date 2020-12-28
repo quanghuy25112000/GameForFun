@@ -1,16 +1,44 @@
 const style=`<style>
+    .home{
+        width: 100vw;
+        height: 100vh;
+        background: url('https://f20-zpc.zdn.vn/1405777170906197418/e7a3d86d16d5e78bbec4.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .title{
+        font-family: 'Sancreek', cursive;
+        color: #fd0000;
+        font-size: 100px;
+        text-align: center;
+    }
+    .form{
+        box-shadow: 0 0 10px red;
+        width: 50vw;
+        height: 70vh;
+        margin: auto;
+        margin-top: 6vh;
+        background-color: #272525;
+    }
     #question-answer{
-        margin:auto;
-        
+       
     }
     #question{
         padding:50px;
+        line-height: 6.5vh;
     }
     #all-answer{
         cursor:pointer; 
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 40px;   
+        gap: 40px; 
+        line-height:14vh; 
+    }
+    #game-question{
+        box-shadow: 0 0 70px red;
+    }
+    #a1{
+        
     }
     
 </style>`
@@ -30,7 +58,9 @@ export class Gameplay1 extends HTMLElement{
     }
     async connectedCallback(){
         
-            this.shadowDom.innerHTML=`
+        //<div id="question-answer"></div>
+
+        this.shadowDom.innerHTML=`
         ${style}
         <div id="all">
         <div id="question-answer">
@@ -43,9 +73,7 @@ export class Gameplay1 extends HTMLElement{
         this.listQues1 = await this.getMany(1)
         
         this.showQuestion(0) 
-        
-        
-         
+
     }
     async getMany(i){
         const res =await firebase.firestore().collection('questions').where('group','==',i).get()
@@ -55,15 +83,19 @@ export class Gameplay1 extends HTMLElement{
     showQuestion(index){
         const question = this.listQues1[index]
         this.shadowDom.querySelector('#question-answer').innerHTML = `
-        <div id="question">
-                <game-question id="game-question" question="${question.question}"></game-question>
-            </div>
-            <div id="all-answer">
-                    <game-answer id="a1" answer="${question.answers[0].content}" isTrue="${question.answers[0].isTrue}"></game-answer>
-                    <game-answer id="a2" answer="${question.answers[1].content}" isTrue="${question.answers[1].isTrue}"></game-answer>
-                    <game-answer id="a3" answer="${question.answers[2].content}" isTrue="${question.answers[2].isTrue}"></game-answer>
-                    <game-answer id="a4" answer="${question.answers[3].content}" isTrue="${question.answers[3].isTrue}"></game-answer> 
-                
+            <div class="home">
+                <div class="title">Game For Fun</div>
+                <div class="form">
+                    <div id="question">
+                        <game-question id="game-question" question="${question.question}"></game-question>
+                    </div>
+                    <div id="all-answer">
+                        <game-answer id="a1" answer="${question.answers[0].content}" isTrue="${question.answers[0].isTrue}"></game-answer>
+                        <game-answer id="a2" answer="${question.answers[1].content}" isTrue="${question.answers[1].isTrue}"></game-answer>
+                        <game-answer id="a3" answer="${question.answers[2].content}" isTrue="${question.answers[2].isTrue}"></game-answer>
+                        <game-answer id="a4" answer="${question.answers[3].content}" isTrue="${question.answers[3].isTrue}"></game-answer> 
+                    </div>
+                </div>
             </div>
             
         `
