@@ -20,15 +20,13 @@ const style=`<style>
         margin-top: 6vh;
         background-color: #272525;
     }
-    #question-answer{
-       
-    }
+    
     #question{
         padding:50px;
         line-height: 6.5vh;
     }
     #all-answer{
-        cursor:pointer; 
+        
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 40px; 
@@ -37,8 +35,10 @@ const style=`<style>
     #game-question{
         box-shadow: 0 0 70px red;
     }
-    .score{
-        color: white;
+    #score{
+        color:yellow;
+        margin-top:10vh;
+        padding:25px 0 0 25px;
     }
     
 </style>`
@@ -63,8 +63,6 @@ export class Gameplay1 extends HTMLElement{
         this.shadowDom.innerHTML=`
         ${style}
         <div id="question-answer">
-            <div id="score">Point: 0</div>
-        </div>
         `
         // lay du lieu ve
         this.listQues1 = await this.getMany(1)
@@ -83,6 +81,7 @@ export class Gameplay1 extends HTMLElement{
             <div class="home">
                 <div class="title">Game For Fun</div>
                 <div class="form">
+                <div id="score">Point: 0</div>
                     <div id="question">
                         <game-question id="game-question" question="${question.question}"></game-question>
                     </div>
@@ -92,6 +91,7 @@ export class Gameplay1 extends HTMLElement{
                         <game-answer id="a3" answer="${question.answers[2].content}" isTrue="${question.answers[2].isTrue}"></game-answer>
                         <game-answer id="a4" answer="${question.answers[3].content}" isTrue="${question.answers[3].isTrue}"></game-answer> 
                     </div>
+                         
                 </div>
             </div>
             

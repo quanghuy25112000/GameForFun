@@ -139,7 +139,7 @@ export class RegisterScreen extends HTMLElement{
                 gmail: gmail,
                 password: password,
                 point:0,
-                new_point:0,
+                
             }
             if(ok){
                 const check=await this.checkGmail(gmail)
@@ -164,4 +164,7 @@ export class RegisterScreen extends HTMLElement{
         return !res.empty
     }
 }
+
+
+
 window.customElements.define('register-screen',RegisterScreen)
