@@ -8,7 +8,7 @@ const style=`<style>
 }
 #main{
     border: 2px solid black outset;
-    box-shadow: 0px 0px 25px #ac0c00;
+    box-shadow: 0px 0px 20px #ac0c00;
     height:500px;
     width:25vw;
     margin:auto;
@@ -54,7 +54,7 @@ const style=`<style>
   
   .btn-5:hover {
     border: 1px solid;
-    box-shadow: inset 0 0 30px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
     outline-color: rgba(255, 255, 255, 0);
     outline-offset: 15px;
     text-shadow: 1px 1px 2px #427388; 
@@ -94,7 +94,7 @@ export class RegisterScreen extends HTMLElement{
                         <input-wrapper class="input" id="gmail" type="text" placeholder="User Gmail"></input-wrapper>
                         <input-wrapper class="input" id="name" type="text" placeholder="User Name"></input-wrapper>
                         <input-wrapper class="input" id="password" type="password" placeholder="User Password"></input-wrapper>
-                        <input-wrapper class="input" id="confim-password" type="password" placeholder="Cofim Password"></input-wrapper>
+                        <input-wrapper class="input" id="confim-password" type="password" placeholder="Confim Password"></input-wrapper>
                         <button class="btn btn-5">Register</button>
                         <br>
                         <br>
@@ -107,48 +107,50 @@ export class RegisterScreen extends HTMLElement{
         const registerForm=this.shadowDom.getElementById('register-form');
         registerForm.addEventListener('submit',async(e)=>{
             e.preventDefault()
+            let ok=true;
             const gmail=this.shadowDom.getElementById('gmail').value
             const name=this.shadowDom.getElementById('name').value
             const password=this.shadowDom.getElementById('password').value
             const confimpass=this.shadowDom.getElementById('confim-password').value
-            let isValid = true;
+            
             if(gmail.trim()===''){
-                isValid = false
-                this.setError('gmail','Must Not Be Left Blank')
+                this.setError('gmail','must not be left blank')
+                ok=false
             }
             if(name.trim()===''){
-                isValid = false
-                this.setError('name','Must Not Be Left Blank')
+                this.setError('name','must not be left blank')
+                ok=false
             }
             if(password.trim()===''){
-                isValid = false
-                this.setError('password','Must Not Be Left Blank')
+                this.setError('password','must not be left blank')
+                ok=false
             }
             if(confimpass.trim()===''){
-                isValid = false
-                this.setError('confim-password','Must Not Be Left Blank')
+                this.setError('confim-password','must not be left blank')
+                ok=false
             }
             if(confimpass!==password){
-                isValid = false
-                this.setError('confim-password','Password Incorrect')
+                this.setError('confim-password','password incorrect')
+                ok=false
             }
-            if (!isValid) {
-                return
-            }
-            const user = {
-                fullName: name,
+           
+            const data={
+                name: name,
                 gmail: gmail,
-                password: CryptoJS.MD5(password).toString()
-              }
-              // nếu email đã tồn tại rồi thì trả ra true
-              const check = await this.checkEmailExist(gmail)
-              if (check) {
-                alert('Email đã được đăng ký')
-              } else {
-                firebase.firestore().collection('users').add(user)
-                alert('Đăng ký thành công')
-                router.navigate('/login')
-              }
+                password: password,
+                point:0,
+                new_point:0,
+            }
+            if(ok){
+                const check=await this.checkGmail(gmail)
+                if(check){
+                    alert('Gmail already avilable')
+                }
+                else{
+                    firebase.firestore().collection('user').add(data);
+                    alert('Register Success')
+                }
+            }
         })
         this.shadowDom.getElementById('redirect').addEventListener('click',()=>{
             router.navigate('login')
@@ -157,15 +159,9 @@ export class RegisterScreen extends HTMLElement{
     setError(id,message){
         this.shadowDom.getElementById(id).setAttribute('error',message)
     }
-    async checkEmailExist(gmail) {
-        const res = await firebase.firestore().collection('users')
-         .where('email', '==' , gmail).get()
-         return !res.empty
+    async checkGmail(gmail){
+        const res=await firebase.firestore().collection('user').where('gmail','==',gmail).get()
+        return !res.empty
     }
 }
-// async function getMany(){
-//     const res =await firebase.firestore().collection('user').get()
-//     const user=getDatas(res)
-
-
 window.customElements.define('register-screen',RegisterScreen)

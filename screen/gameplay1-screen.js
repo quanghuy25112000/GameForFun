@@ -58,9 +58,9 @@ export class Gameplay1 extends HTMLElement{
     }
     async connectedCallback(){
         
-        <div id="question-answer"></div>
+        //<div id="question-answer"></div>
 
-            this.shadowDom.innerHTML=`
+        this.shadowDom.innerHTML=`
         ${style}
         <div id="all">
         <div id="question-answer">
@@ -99,7 +99,6 @@ export class Gameplay1 extends HTMLElement{
             </div>
             
         `
-        myFunction();
         this.shadowDom.querySelector('#all-answer').addEventListener('click', (e) => {        
              if(this.order<this.listQues1.length){
                 if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==1) {
