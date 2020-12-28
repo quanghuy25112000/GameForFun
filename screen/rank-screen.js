@@ -8,8 +8,8 @@ const style=`<style>
 }
 #main{
     border: 2px solid black outset;
-    box-shadow: 0px 0px 25px #ac0c00;
-    height:66vh;
+    box-shadow: 0px 0px 20px #ac0c00;
+    height:500px;
     width:25vw;
     margin:auto;
     padding:40px;
@@ -50,6 +50,7 @@ const style=`<style>
     font-family: 'Langar', cursive;
     font-size: 27px;
     color:yellow;
+    margin-top:10vh;
   } 
   
   .btn-5:hover {
@@ -65,46 +66,76 @@ const style=`<style>
     justify-content: center;
     align-items: center;
   }
+  #report{
+      color:yellow;
+      font-family: 'Langar', cursive;
+      font-size:25px;
+      text-align:center;
+  }
+  #point{
+      color:yellow;
+      text-align:center;
+      font-size:20px;
+      font-family: 'Langar', cursive;
+  }
 </style>`
-import '../component/background.js'
-export class MainScreen extends HTMLElement{
+import {getDatas,getItemLocalStorage} from '../ultis.js'
+export class RankScreen extends HTMLElement{
     constructor(){
         super()
         this.shadowDom=this.attachShadow({mode:'open'})
     }
-    connectedCallback(){
+    async connectedCallback(){
+        this.point=this.getAttribute('point')
         this.shadowDom.innerHTML=`
         ${style}
         <div class="home">
             <div class="title">Game For Fun</div>
             <div id="main">
                 <div id="img">
-                    Are You Ready!
+                    TOP 10!
                 </div>
-                <div class="bt" >
-                    <button id="start-game" class="btn btn-5">Start Game</button>
+                <div >
+                    <table id="show-rank">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                        <th>Poin</th>
+                        </tr>
+                    </table>
                 </div>
-                <div class="bt">
-                    <button id="top" class="btn btn-5">Top Server</button>
+                <div id="report">
+                    Your Point
                 </div>
-                
-                    <div class="bt"><button id="log-out" class="btn btn-5">Log out</button></div>
+                <div id="point">
+                   ${this.point}
+                </div>
+                <div class="bt"><button id="back-to-home" class="btn btn-5">Back To Home</button></div>
             </div>
         </div>
         `
-        this.shadowDom.getElementById('start-game').addEventListener('click',(e)=>{
-            e.preventDefault()
-            router.navigate('mode')
+        this.shadowDom.getElementById('back-to-home').addEventListener('click',()=>{
+            router.navigate('main')
         })
-        this.shadowDom.getElementById('top').addEventListener('click',(e)=>{
-            e.preventDefault()
-            router.navigate('rank')
-        })
-        this.shadowDom.getElementById('log-out').addEventListener('click',(e)=>{
-            e.preventDefault()
-            localStorage.removeItem('currentUser')
-            router.navigate('login')
-        })
+        let user=await this.getRank()
+        for(let i=0;i<4;i++){
+            this.showRank(i+1,user[i].name,user[i].point)
+        }
+        
+        this.shadowDom.getElementById('point').innerHTML=`${getItemLocalStorage('currentUser').point}`
+    }
+    showRank(a,b,c){
+        
+        this.shadowDom.getElementById('show-rank').innerHTML+=`
+        <tt-dd rank=${a} name=${b} point=${c}></tt-dd>
+        <br>
+        `
+    }
+    async getRank(){
+        const res=await firebase.firestore().collection('user').orderBy('point','desc').get()
+        const user=getDatas(res)
+        return user
     }
 }
-window.customElements.define('main-screen',MainScreen)
+
+window.customElements.define('rank-screen',RankScreen)

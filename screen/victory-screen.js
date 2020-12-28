@@ -8,8 +8,8 @@ const style=`<style>
 }
 #main{
     border: 2px solid black outset;
-    box-shadow: 0px 0px 25px #ac0c00;
-    height:66vh;
+    box-shadow: 0px 0px 20px #ac0c00;
+    height:500px;
     width:25vw;
     margin:auto;
     padding:40px;
@@ -50,6 +50,7 @@ const style=`<style>
     font-family: 'Langar', cursive;
     font-size: 27px;
     color:yellow;
+    margin-top:20vh;
   } 
   
   .btn-5:hover {
@@ -65,46 +66,50 @@ const style=`<style>
     justify-content: center;
     align-items: center;
   }
+  #report{
+      color:yellow;
+      font-family: 'Langar', cursive;
+      font-size:25px;
+      text-align:center;
+  }
+  #point{
+      color:yellow;
+      text-align:center;
+      font-size:40px;
+      font-family: 'Langar', cursive;
+  }
 </style>`
 import '../component/background.js'
-export class MainScreen extends HTMLElement{
+export class VictoryScreen extends HTMLElement{
     constructor(){
         super()
         this.shadowDom=this.attachShadow({mode:'open'})
     }
     connectedCallback(){
+        this.point=this.getAttribute('point')
         this.shadowDom.innerHTML=`
         ${style}
         <div class="home">
             <div class="title">Game For Fun</div>
             <div id="main">
                 <div id="img">
-                    Are You Ready!
+                    VICTORY!
                 </div>
-                <div class="bt" >
-                    <button id="start-game" class="btn btn-5">Start Game</button>
+                <div id="report">
+                    Your Point
                 </div>
-                <div class="bt">
-                    <button id="top" class="btn btn-5">Top Server</button>
-                </div>
-                
-                    <div class="bt"><button id="log-out" class="btn btn-5">Log out</button></div>
+                <h1 id="point">
+                   ${this.point}
+                </h1>
+                <div class="bt"><button id="back-to-home" class="btn btn-5">Try Diffirent Mode</button></div>
             </div>
         </div>
         `
-        this.shadowDom.getElementById('start-game').addEventListener('click',(e)=>{
-            e.preventDefault()
+        
+        this.shadowDom.getElementById('back-to-home').addEventListener('click',()=>{
             router.navigate('mode')
-        })
-        this.shadowDom.getElementById('top').addEventListener('click',(e)=>{
-            e.preventDefault()
-            router.navigate('rank')
-        })
-        this.shadowDom.getElementById('log-out').addEventListener('click',(e)=>{
-            e.preventDefault()
-            localStorage.removeItem('currentUser')
-            router.navigate('login')
         })
     }
 }
-window.customElements.define('main-screen',MainScreen)
+
+window.customElements.define('victory-screen',VictoryScreen)

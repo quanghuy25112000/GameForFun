@@ -62,7 +62,10 @@ export class Gameplay1 extends HTMLElement{
 
         this.shadowDom.innerHTML=`
         ${style}
+        <div id="all">
         <div id="question-answer">
+            </div>
+            </div>
         `
         // lay du lieu ve
         this.listQues1 = await this.getMany(1)
@@ -98,15 +101,17 @@ export class Gameplay1 extends HTMLElement{
         `
         
         this.shadowDom.querySelector('#all-answer').addEventListener('click',(e) => {        
-           const id=e.target.id
-                setTimeout(()=>{if(this.order<this.listQues1.length-1){  
+            const id=e.target.id
+                setTimeout(()=>{
+                if(this.order<this.listQues1.length-1){  
                 if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
+                    
                     this.order++
                     this.loop()
                     
                    
                  }
-                 else if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==0){
+                 else if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==0){
                     this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
                     if(this.score>getItemLocalStorage('currentUser').point) this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score)
                     // console.log(this.score);
@@ -117,10 +122,13 @@ export class Gameplay1 extends HTMLElement{
                  }
              }
              else{
-                this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score+1}"></end-screen>`
-                alert('end')
+                if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
+                    this.shadowDom.querySelector('#all').innerHTML=`<victory-screen point="${this.score+1}"></victory-screen>`
+                    this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score+1)
+                 }
+                else this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
                             
-             }},3000)
+             }},1500)
             
          })
          
@@ -130,7 +138,7 @@ export class Gameplay1 extends HTMLElement{
         
          this.showQuestion(this.order)
          
-         this.score++
+         this.score+=1
          this.shadowDom.getElementById('score').innerHTML=`Point: ${this.score}`
          console.log(this.listQues1);
     }

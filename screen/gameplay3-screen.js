@@ -64,6 +64,8 @@ export class Gameplay3 extends HTMLElement{
         ${style}
         <div id="all">
         <div id="question-answer">
+        </div>
+        </div>
             
         `
         // lay du lieu ve
@@ -103,13 +105,12 @@ export class Gameplay3 extends HTMLElement{
             const id=e.target.id
                 setTimeout(()=>{
                 if(this.order<this.listQues1.length-1){  
-                if(this.shadowDom.querySelector('#' +e.target.id).getAttribute('isTrue')==1) {
+                if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
                     this.order++
                     this.loop()
-                    
-                   
-                 }
-                 else if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==0){
+                }
+                 else if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==0){
+                     console.log(this.score);
                     this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
                     if(this.score>getItemLocalStorage('currentUser').point) this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score)
                     // console.log(this.score);
@@ -120,10 +121,14 @@ export class Gameplay3 extends HTMLElement{
                  }
              }
              else{
-                this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score+10}"></end-screen>`
-                this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score+10)
+                if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
+                    this.shadowDom.querySelector('#all').innerHTML=`<victory-screen point="${this.score+10}"></victory-screen>`
+                    this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score+10)
+                }
+                else this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
+                
                             
-             }},3000)
+             }},1500)
             
          })
          

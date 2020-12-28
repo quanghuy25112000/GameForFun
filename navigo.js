@@ -36,6 +36,12 @@ router
     'end': function(){
       redirect(`end`)
     },
+    'victory': function(){
+      redirect(`victory`)
+    },
+    'rank': function(){
+      redirect(`rank`)
+    },
     '*': function () {
      router.navigate('login')
     }
@@ -78,6 +84,16 @@ router
     else if(screenName == 'end'){
       document.getElementById('game').innerHTML=`
           <end-screen></end-screen>
+      `
+    }
+    else if(screenName == 'victory'){
+      document.getElementById('game').innerHTML=`
+          <victory-screen></victory-screen>
+      `
+    }
+    else if(screenName == 'rank'){
+      document.getElementById('game').innerHTML=`
+          <rank-screen></rank-screen>
       `
     }
 }

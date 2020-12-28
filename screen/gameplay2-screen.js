@@ -63,7 +63,9 @@ export class Gameplay2 extends HTMLElement{
         this.shadowDom.innerHTML=`
         ${style}
         <div id="all">
-        <div id="question-answer">
+            <div id="question-answer">
+            </div>
+        </div>
             
         `
         // lay du lieu ve
@@ -101,15 +103,13 @@ export class Gameplay2 extends HTMLElement{
         
         this.shadowDom.querySelector('#all-answer').addEventListener('click',(e) => {        
             const id=e.target.id
-                setTimeout(()=>{
+            setTimeout(()=>{
                 if(this.order<this.listQues1.length-1){  
-                if(this.shadowDom.querySelector('#' +e.target.id).getAttribute('isTrue')==1) {
+                if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) { 
                     this.order++
                     this.loop()
-                    
-                   
-                 }
-                 else if(this.shadowDom.querySelector('#' + e.target.id).getAttribute('isTrue')==0){
+                }
+                else if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==0){
                     this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
                     if(this.score>getItemLocalStorage('currentUser').point) this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score)
                     // console.log(this.score);
@@ -117,13 +117,17 @@ export class Gameplay2 extends HTMLElement{
                     // let a=await this.updatePoint(getItemLocalStorage('currentUser').gmail);
                     // console.log(a);
                     
-                 }
-             }
-             else{
-                this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score+5}"></end-screen>`
-                this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score+5)
+                }
+            }
+            else{
+                if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) { 
+                    this.shadowDom.querySelector('#all').innerHTML=`<victory-screen point="${this.score+5}"></victory-screen>`
+                    this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score+5)
+                }
+                else this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
+                
                             
-             }},3000)
+             }},1500)
             
          })
          
