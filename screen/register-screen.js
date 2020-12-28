@@ -164,10 +164,7 @@ export class RegisterScreen extends HTMLElement{
         return !res.empty
     }
 }
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> fcd15d47e005d5fe2ae9c9631d36490b2efd37f1
 window.customElements.define('register-screen',RegisterScreen)
