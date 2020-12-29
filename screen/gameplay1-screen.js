@@ -49,13 +49,14 @@ export class Gameplay1 extends HTMLElement{
     order
     score
     ok
+    k
     constructor(){
         super()
         this.listQues1= []
         this.score=0
         this.order=0
         this.ok=[]
-        
+        this.k=0;
         this.shadowDom=this.attachShadow({mode:'open'})
     }
     async connectedCallback(){
@@ -109,48 +110,58 @@ export class Gameplay1 extends HTMLElement{
         this.shadowDom.querySelector('#all-answer').addEventListener('click',(e) => {        
             const id=e.target.id
                 setTimeout(()=>{
-                if(this.order<this.listQues1.length-1){  
-                if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
-                    while(this.ok[this.order]===1){
-                        this.order=Math.floor(Math.random()*this.listQues1.length)
-                        
-                    }
-                    // this.order++
-                    this.ok[this.order]=1
-                    console.log(Math.floor(Math.random()*this.listQues1.length));
-                    this.loop()
-                }
-                 else if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==0){
-                    this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
-                    if(this.score>getItemLocalStorage('currentUser').point) this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score)
+                if(this.k<this.listQues1.length-1){  
+                    if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
                     
-                 }
-             }
-             else{
-                if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
-                    this.shadowDom.querySelector('#all').innerHTML=`<victory-screen point="${this.score+1}"></victory-screen>`
-                    this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score+1)
-                 }
-                else this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
+                        while(this.ok[this.order]===1){
+                            this.order=Math.floor(Math.random()*this.listQues1.length)
+                        }
+                        
+                        this.ok[this.order]=1
+                        alert('doi chut');
+                        setTimeout(()=>{
+        
+                            this.showQuestion(this.order)
+                            this.k++;
+                            this.score+=1
+                            this.shadowDom.getElementById('score').innerHTML=`Point: ${this.score}`
                             
-             }},1500)
-            
+                       },1000)
+                    }
+                    else if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==0){
+                        this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
+                        if(this.score>getItemLocalStorage('currentUser').point) this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score)
+                    
+                    }
+                }
+                else{
+                    if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
+                        this.shadowDom.querySelector('#all').innerHTML=`<victory-screen point="${this.score+1}"></victory-screen>`
+                        this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score+1)
+                    }
+                    else this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
+                       
+                }},1000)
+               
          })
          
         
     }
-    loop(){
+    // loop(){
         
-         this.showQuestion(this.order)
+    //      this.showQuestion(this.order)
          
-         this.score+=1
-         this.shadowDom.getElementById('score').innerHTML=`Point: ${this.score}`
+    //      this.score+=1
+    //      this.shadowDom.getElementById('score').innerHTML=`Point: ${this.score}`
          
-    }
+    // }
     async updatePoint(gmail,point){
         const res=await firebase.firestore().collection('user').where('gmail','==',gmail).get()
         const user=getDatas(res)
         firebase.firestore().collection('user').doc(user[0].id).update({'point':point})
+    }
+    print(){
+        console.log('chinh xac')
     }
 
 }
