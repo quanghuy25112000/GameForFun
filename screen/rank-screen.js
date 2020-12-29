@@ -128,10 +128,10 @@ export class RankScreen extends HTMLElement{
                     </tr>
                 </table>
                 <div id="report">
-                    Your Point
+                    Your Rank: 
                 </div>
                 <div id="point">
-                   ${this.point}
+                   
                 </div>
                 <div class="bt"><button id="back-to-home" class="btn btn-5">Back To Home</button></div>
             </div>
@@ -141,11 +141,21 @@ export class RankScreen extends HTMLElement{
             router.navigate('main')
         })
         let user=await this.getRank()
-        for(let i=0;i<4;i++){
+        for(let i=0;i<5;i++){
             this.showRank(i+1,user[i].name,user[i].point)
         }
-        
-        this.shadowDom.getElementById('point').innerHTML=`${getItemLocalStorage('currentUser').point}`
+        let rank=1;
+        for(let i=0;i<user.length;i++){
+            if(user[i].gmail!==getItemLocalStorage('currentUser').gmail){
+                rank++;
+                break
+            }
+            
+            
+        }
+       
+        this.shadowDom.getElementById('report').innerHTML+=`${rank}`
+        this.shadowDom.getElementById('point').innerHTML=`Point:  ${getItemLocalStorage('currentUser').point} `
     }
     showRank(a,b,c){
         
