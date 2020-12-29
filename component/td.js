@@ -1,3 +1,4 @@
+
 export class TD extends HTMLElement{
     constructor(){
         super()
@@ -8,11 +9,11 @@ export class TD extends HTMLElement{
         this.name=this.getAttribute('name')
         this.point=this.getAttribute('point')
         this.shadowDom.innerHTML=`
-            <tr>
-                <td>${this.rank}</td>
-                <td>${this.name}</td>
-                <td>${this.point}</td>
-            </tr>
+                <tr>
+                    <td class="td">${this.rank}</td>
+                    <td class="td">${this.name}</td>
+                    <td class="td>${this.point}</td>
+                </tr>
         `
     }
 }

@@ -78,6 +78,23 @@ const style=`<style>
       font-size:20px;
       font-family: 'Langar', cursive;
   }
+  #show-rank{
+    margin-top: -7vh;
+    width: 24vw;
+    height: 26vh;
+    display: block;
+    text-align: center;
+    margin: auto;
+  }
+  th{
+    font-family: 'Chakra Petch', sans-serif;
+    color: red;
+  }
+  tr{
+      width: 24vw;
+      margin: auto;
+      text-align:center;
+  }
 </style>`
 import {getDatas,getItemLocalStorage} from '../ultis.js'
 export class RankScreen extends HTMLElement{
@@ -87,6 +104,9 @@ export class RankScreen extends HTMLElement{
     }
     async connectedCallback(){
         this.point=this.getAttribute('point')
+        this.rank=this.getAttribute('rank')
+        this.name=this.getAttribute('name')
+        this.point=this.getAttribute('point')
         this.shadowDom.innerHTML=`
         ${style}
         <div class="home">
@@ -95,15 +115,13 @@ export class RankScreen extends HTMLElement{
                 <div id="img">
                     TOP 10!
                 </div>
-                <div >
-                    <table id="show-rank">
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
+                <table id="show-rank">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
                         <th>Poin</th>
-                        </tr>
-                    </table>
-                </div>
+                    </tr>
+                </table>
                 <div id="report">
                     Your Point
                 </div>
