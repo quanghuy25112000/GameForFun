@@ -112,7 +112,7 @@ export class Gameplay1 extends HTMLElement{
             </div>
             
         </div>
-        <div id="snackbar">Some text some message..</div>
+        <div id="snackbar">Exactly</div>
         `
         // lay du lieu ve
         this.listQues1 = await this.getMany(1)
@@ -165,12 +165,14 @@ export class Gameplay1 extends HTMLElement{
                         }
                         
                         this.ok[this.order]=1;
+                        this.my('Exactly')
                         // alert('doi chut');
-                        (()=>{
-                            var x = document.getElementById("snackbar");
-                            x.className = "show";
-                            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-                        })
+                        // (()=>{
+                        //     var x = document.getElementById("snackbar");
+                        //     x.className = "show";
+                        //     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                        //     console.log('done');
+                        // })
                         setTimeout(()=>{
         
                             this.showQuestion(this.order)
@@ -181,14 +183,20 @@ export class Gameplay1 extends HTMLElement{
                        },1000)
                     }
                     else if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==0){
-                        this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
+                        this.my('Wrong')
+                        setTimeout(()=>{
+                            this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
+                        },1000)
                         if(this.score>getItemLocalStorage('currentUser').point) this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score)
                     
                     }
                 }
                 else{
                     if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
-                        this.shadowDom.querySelector('#all').innerHTML=`<victory-screen point="${this.score+1}"></victory-screen>`
+                        this.my('Exactly')
+                        setTimeout(()=>{
+                            this.shadowDom.querySelector('#all').innerHTML=`<victory-screen point="${this.score+1}"></victory-screen>`
+                        },1000)
                         this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score+1)
                     }
                     else this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
@@ -199,11 +207,13 @@ export class Gameplay1 extends HTMLElement{
          
         
     }
-    // my(){
-    //     var x = document.getElementById("snackbar");
-    //     x.className = "show";
-    //     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-    // }
+    my(mess){
+        var x = this.shadowDom.getElementById("snackbar");
+        x.innerHTML=`${mess}`
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 500);
+        console.log('done');
+    }
     async updatePoint(gmail,point){
         const res=await firebase.firestore().collection('user').where('gmail','==',gmail).get()
         const user=getDatas(res)
