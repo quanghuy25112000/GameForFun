@@ -138,7 +138,10 @@ export class RankScreen extends HTMLElement{
         </div>
         `
         this.shadowDom.getElementById('back-to-home').addEventListener('click',()=>{
-            router.navigate('main')
+            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
+            setTimeout(()=>{
+                router.navigate('main')
+            },300)
         })
         let user=await this.getRank()
         for(let i=0;i<5;i++){
