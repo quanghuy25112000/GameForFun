@@ -118,7 +118,7 @@ export class RankScreen extends HTMLElement{
             <div class="title">Game For Fun</div>
             <div id="main">
                 <div id="img">
-                    TOP 10!
+                    TOP 5!
                 </div>
                 <table id="show-rank">
                     <tr>

@@ -159,13 +159,12 @@ export class Gameplay3 extends HTMLElement{
                 setTimeout(()=>{
                 if(this.k<this.listQues1.length-1){  
                     if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
-                    
                         while(this.ok[this.order]===1){
                             this.order=Math.floor(Math.random()*this.listQues1.length)
                         }
                         
                         this.ok[this.order]=1;
-                        this.my('Exactly')
+                        this.my('Exactly ✔','green')
                         // alert('doi chut');
                         // (()=>{
                         //     var x = document.getElementById("snackbar");
@@ -183,7 +182,7 @@ export class Gameplay3 extends HTMLElement{
                        },1000)
                     }
                     else if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==0){
-                        this.my('Wrong')
+                        this.my('Wrong ✘','red')
                         setTimeout(()=>{
                             this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
                         },1000)
@@ -193,7 +192,7 @@ export class Gameplay3 extends HTMLElement{
                 }
                 else{
                     if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
-                        this.my('Exactly')
+                        this.my('Exactly ✔','green')
                         setTimeout(()=>{
                             this.shadowDom.querySelector('#all').innerHTML=`<victory-screen point="${this.score+10}"></victory-screen>`
                         },1000)
@@ -207,9 +206,9 @@ export class Gameplay3 extends HTMLElement{
          
         
     }
-    my(mess){
+    my(mess,color){
         var x = this.shadowDom.getElementById("snackbar");
-        x.innerHTML=`${mess}`
+        x.innerHTML=`<style> #snackbar{color:${color};}</style>${mess}`
         x.className = "show";
         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 500);
         console.log('done');
@@ -219,9 +218,7 @@ export class Gameplay3 extends HTMLElement{
         const user=getDatas(res)
         firebase.firestore().collection('user').doc(user[0].id).update({'point':point})
     }
-    print(){
-        console.log('chinh xac')
-    }
+    
     audio(){
         this.shadowDom.getElementById('all').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
     }

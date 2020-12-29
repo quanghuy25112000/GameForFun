@@ -47,7 +47,7 @@ const style=`<style>
         visibility: hidden;
         min-width: 250px;
         margin-left: -125px;
-        background-color: #333;
+        background-color: white;
         color: #fff;
         text-align: center;
         border-radius: 2px;
@@ -84,6 +84,7 @@ const style=`<style>
         from {bottom: 30px; opacity: 1;}
         to {bottom: 0; opacity: 0;}
       }
+      
 </style>`
 import {getDatas,getItemLocalStorage} from '../ultis.js'
 export class Gameplay1 extends HTMLElement{
@@ -165,7 +166,7 @@ export class Gameplay1 extends HTMLElement{
                         }
                         
                         this.ok[this.order]=1;
-                        this.my('Exactly')
+                        this.my('Exactly ✔','green')
                         // alert('doi chut');
                         // (()=>{
                         //     var x = document.getElementById("snackbar");
@@ -183,7 +184,7 @@ export class Gameplay1 extends HTMLElement{
                        },1000)
                     }
                     else if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==0){
-                        this.my('Wrong')
+                        this.my('Wrong ✘','red')
                         setTimeout(()=>{
                             this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
                         },1000)
@@ -193,7 +194,7 @@ export class Gameplay1 extends HTMLElement{
                 }
                 else{
                     if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
-                        this.my('Exactly')
+                        this.my('Exactly ✔','green')
                         setTimeout(()=>{
                             this.shadowDom.querySelector('#all').innerHTML=`<victory-screen point="${this.score+1}"></victory-screen>`
                         },1000)
@@ -207,12 +208,12 @@ export class Gameplay1 extends HTMLElement{
          
         
     }
-    my(mess){
+    my(mess,color){
         var x = this.shadowDom.getElementById("snackbar");
-        x.innerHTML=`${mess}`
+        x.innerHTML=`<style> #snackbar{color:${color};}</style>${mess}`
         x.className = "show";
         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 500);
-        console.log('done');
+        
     }
     async updatePoint(gmail,point){
         const res=await firebase.firestore().collection('user').where('gmail','==',gmail).get()
