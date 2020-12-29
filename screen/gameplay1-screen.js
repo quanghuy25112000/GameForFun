@@ -54,7 +54,8 @@ export class Gameplay1 extends HTMLElement{
         this.listQues1= []
         this.score=0
         this.order=0
-        this.ok=1;
+        this.ok=[]
+        
         this.shadowDom=this.attachShadow({mode:'open'})
     }
     async connectedCallback(){
@@ -70,7 +71,11 @@ export class Gameplay1 extends HTMLElement{
         `
         // lay du lieu ve
         this.listQues1 = await this.getMany(1)
-        
+       
+        for(let i=0;i<this.listQues1.length;i++){
+                this.ok.push(0);
+            }
+            this.ok[this.order]=1
         this.showQuestion(this.order) 
 
     }
@@ -106,19 +111,18 @@ export class Gameplay1 extends HTMLElement{
                 setTimeout(()=>{
                 if(this.order<this.listQues1.length-1){  
                 if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
-                    
-                    this.order++
+                    while(this.ok[this.order]===1){
+                        this.order=Math.floor(Math.random()*this.listQues1.length)
+                        
+                    }
+                    // this.order++
+                    this.ok[this.order]=1
+                    console.log(Math.floor(Math.random()*this.listQues1.length));
                     this.loop()
-                    
-                   
-                 }
+                }
                  else if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==0){
                     this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
                     if(this.score>getItemLocalStorage('currentUser').point) this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score)
-                    // console.log(this.score);
-                    // console.log(getItemLocalStorage('currentUser').id);
-                    // let a=await this.updatePoint(getItemLocalStorage('currentUser').gmail);
-                    // console.log(a);
                     
                  }
              }
@@ -141,7 +145,7 @@ export class Gameplay1 extends HTMLElement{
          
          this.score+=1
          this.shadowDom.getElementById('score').innerHTML=`Point: ${this.score}`
-         console.log(this.listQues1);
+         
     }
     async updatePoint(gmail,point){
         const res=await firebase.firestore().collection('user').where('gmail','==',gmail).get()

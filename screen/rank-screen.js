@@ -145,8 +145,11 @@ export class RankScreen extends HTMLElement{
     showRank(a,b,c){
         
         this.shadowDom.getElementById('show-rank').innerHTML+=`
-        <tt-dd rank=${a} name=${b} point=${c}></tt-dd>
-        <br>
+        <tr>
+        <td>${a}</td>
+        <td>${b}</td>
+        <td>${c}</td>
+    </tr>
         `
     }
     async getRank(){
