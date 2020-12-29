@@ -28,7 +28,7 @@ const style=`<style>
     font-family: 'Ewert', cursive;
     text-align:center;
     color: #fd0000;
-    font-size: 40px;
+    font-size: 65px;
     margin-bottom: 10vh;
 }
 .main button{
@@ -65,36 +65,41 @@ const style=`<style>
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: -9vh;
   }
   #report{
       color:yellow;
       font-family: 'Langar', cursive;
       font-size:25px;
       text-align:center;
+      margin-top: 12vh;
   }
   #point{
       color:yellow;
       text-align:center;
-      font-size:20px;
+      font-size:23px;
       font-family: 'Langar', cursive;
   }
   #show-rank{
-    margin-top: -7vh;
+    margin-top: -9.5vh;
     width: 24vw;
     height: 26vh;
-    display: block;
+  }
+
+td,th{
     text-align: center;
-    margin: auto;
-  }
-  th{
     font-family: 'Chakra Petch', sans-serif;
+    font-size: 20px;
+}
+th {
     color: red;
-  }
-  tr{
-      width: 24vw;
-      margin: auto;
-      text-align:center;
-  }
+}
+td{
+    color:yellow;
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
 </style>`
 import {getDatas,getItemLocalStorage} from '../ultis.js'
 export class RankScreen extends HTMLElement{

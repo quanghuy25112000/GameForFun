@@ -1,4 +1,8 @@
-
+const style=`<style>
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>`
 export class TD extends HTMLElement{
     constructor(){
         super()
@@ -9,6 +13,7 @@ export class TD extends HTMLElement{
         this.name=this.getAttribute('name')
         this.point=this.getAttribute('point')
         this.shadowDom.innerHTML=`
+        ${style}
                 <tr>
                     <td class="td">${this.rank}</td>
                     <td class="td">${this.name}</td>
