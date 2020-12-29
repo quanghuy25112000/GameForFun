@@ -42,6 +42,48 @@ const style=`<style>
         font-family: 'Chakra Petch', sans-serif;
     }
     
+
+    #snackbar {
+        visibility: hidden;
+        min-width: 250px;
+        margin-left: -125px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+        padding: 16px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        bottom: 30px;
+        font-size: 17px;
+      }
+      
+      #snackbar.show {
+        visibility: visible;
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      }
+      
+      @-webkit-keyframes fadein {
+        from {bottom: 0; opacity: 0;} 
+        to {bottom: 30px; opacity: 1;}
+      }
+      
+      @keyframes fadein {
+        from {bottom: 0; opacity: 0;}
+        to {bottom: 30px; opacity: 1;}
+      }
+      
+      @-webkit-keyframes fadeout {
+        from {bottom: 30px; opacity: 1;} 
+        to {bottom: 0; opacity: 0;}
+      }
+      
+      @keyframes fadeout {
+        from {bottom: 30px; opacity: 1;}
+        to {bottom: 0; opacity: 0;}
+      }
 </style>`
 import {getDatas,getItemLocalStorage} from '../ultis.js'
 export class Gameplay1 extends HTMLElement{
@@ -66,9 +108,11 @@ export class Gameplay1 extends HTMLElement{
         this.shadowDom.innerHTML=`
         ${style}
         <div id="all">
-        <div id="question-answer">
+            <div id="question-answer">
             </div>
-            </div>
+            
+        </div>
+        <div id="snackbar">Some text some message..</div>
         `
         // lay du lieu ve
         this.listQues1 = await this.getMany(1)
@@ -103,12 +147,15 @@ export class Gameplay1 extends HTMLElement{
                     </div>
                          
                 </div>
+                
             </div>
             
         `
         
-        this.shadowDom.querySelector('#all-answer').addEventListener('click',(e) => {        
+        this.shadowDom.querySelector('#all-answer').addEventListener('click',(e) => {  
+            this.audio()
             const id=e.target.id
+            
                 setTimeout(()=>{
                 if(this.k<this.listQues1.length-1){  
                     if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
@@ -117,8 +164,13 @@ export class Gameplay1 extends HTMLElement{
                             this.order=Math.floor(Math.random()*this.listQues1.length)
                         }
                         
-                        this.ok[this.order]=1
-                        alert('doi chut');
+                        this.ok[this.order]=1;
+                        // alert('doi chut');
+                        (()=>{
+                            var x = document.getElementById("snackbar");
+                            x.className = "show";
+                            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                        })
                         setTimeout(()=>{
         
                             this.showQuestion(this.order)
@@ -147,13 +199,10 @@ export class Gameplay1 extends HTMLElement{
          
         
     }
-    // loop(){
-        
-    //      this.showQuestion(this.order)
-         
-    //      this.score+=1
-    //      this.shadowDom.getElementById('score').innerHTML=`Point: ${this.score}`
-         
+    // my(){
+    //     var x = document.getElementById("snackbar");
+    //     x.className = "show";
+    //     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
     // }
     async updatePoint(gmail,point){
         const res=await firebase.firestore().collection('user').where('gmail','==',gmail).get()
@@ -162,6 +211,9 @@ export class Gameplay1 extends HTMLElement{
     }
     print(){
         console.log('chinh xac')
+    }
+    audio(){
+        this.shadowDom.getElementById('all').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
     }
 
 }

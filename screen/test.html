@@ -1,90 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="test.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Sancreek&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Ewert&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Langar&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@1,700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+</style>
 </head>
 <body>
-    <div class="home">
-        <div class="title">Game for fun</div>
-        <div class="form">
-            <div id="img">
-                TOP
-            </div>
-            <table>
-                <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Poin</th>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Maria Anders</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Francisco Chang</td>
-                  <td>10</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Roland Mendel</td>
-                  <td>15</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Helen Bennett</td>
-                  <td>20</td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td>Yoshi Tannamuri</td>
-                  <td>25</td>
-                </tr>
-                <tr>
-                  <td>6</td>
-                  <td>Giovanni Rovelli</td>
-                  <td>30</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>Giovanni Rovelli</td>
-                    <td>35</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>Giovanni Rovelli</td>
-                    <td>40</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>Giovanni Rovelli</td>
-                    <td>45</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td>Giovanni Rovelli</td>
-                    <td>50</td>
-                </tr>
-              </table>
-        </div>
-    </div>
-    <audio control autoplay src="../Nhac-Nen-Lien-Minh-Huyen-Thoai-Dau-Xep-Hang-Lien-Minh-Huyen-Thoai.mp3"></audio>
-</body>
+
+<h2>Snackbar / Toast</h2>
+<p>Snackbars are often used as a tooltips/popups to show a message at the bottom of the screen.</p>
+<p>Click on the button to show the snackbar. It will disappear after 3 seconds.</p>
+
+<button onclick="myFunction()">Show Snackbar</button>
+
+<div id="snackbar">Some text some message..</div>
+
 <script>
-  let arr=[20]
-  let a=Math.floor(Math.random()*arr)
-  console.log(a);
+function myFunction() {
+  var x = document.getElementById("snackbar");
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
 </script>
+
+</body>
 </html>
