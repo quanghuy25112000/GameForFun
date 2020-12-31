@@ -26,7 +26,6 @@ const style=`<style>
         line-height: 6.5vh;
     }
     #all-answer{
-        
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 40px; 
@@ -43,6 +42,48 @@ const style=`<style>
         font-family: 'Chakra Petch', sans-serif;
     }
     
+
+    #snackbar {
+        visibility: hidden;
+        min-width: 250px;
+        margin-left: -125px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+        padding: 16px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        bottom: 30px;
+        font-size: 17px;
+      }
+      
+      #snackbar.show {
+        visibility: visible;
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      }
+      
+      @-webkit-keyframes fadein {
+        from {bottom: 0; opacity: 0;} 
+        to {bottom: 30px; opacity: 1;}
+      }
+      
+      @keyframes fadein {
+        from {bottom: 0; opacity: 0;}
+        to {bottom: 30px; opacity: 1;}
+      }
+      
+      @-webkit-keyframes fadeout {
+        from {bottom: 30px; opacity: 1;} 
+        to {bottom: 0; opacity: 0;}
+      }
+      
+      @keyframes fadeout {
+        from {bottom: 30px; opacity: 1;}
+        to {bottom: 0; opacity: 0;}
+      }
 </style>`
 import {getDatas,getItemLocalStorage} from '../ultis.js'
 export class Gameplay3 extends HTMLElement{
@@ -56,8 +97,8 @@ export class Gameplay3 extends HTMLElement{
         this.listQues1= []
         this.score=0
         this.order=0
-        this.ok=[];
-        this.k=0
+        this.ok=[]
+        this.k=0;
         this.shadowDom=this.attachShadow({mode:'open'})
     }
     async connectedCallback(){
@@ -67,17 +108,19 @@ export class Gameplay3 extends HTMLElement{
         this.shadowDom.innerHTML=`
         ${style}
         <div id="all">
-        <div id="question-answer">
-        </div>
-        </div>
+            <div id="question-answer">
+            </div>
             
+        </div>
+        <div id="snackbar">Exactly</div>
         `
         // lay du lieu ve
         this.listQues1 = await this.getMany(3)
+       
         for(let i=0;i<this.listQues1.length;i++){
-            this.ok.push(0);
-        }
-        this.ok[this.order]=1
+                this.ok.push(0);
+            }
+            this.ok[this.order]=1
         this.showQuestion(this.order) 
 
     }
@@ -92,7 +135,7 @@ export class Gameplay3 extends HTMLElement{
             <div class="home">
                 <div class="title">Game For Fun</div>
                 <div class="form">
-                <div id="score">Point: 0</div>
+                    <div id="score">Point: 0</div>
                     <div id="question">
                         <game-question id="game-question" question="${question.question}"></game-question>
                     </div>
@@ -104,60 +147,80 @@ export class Gameplay3 extends HTMLElement{
                     </div>
                          
                 </div>
+                
             </div>
             
         `
         
-        this.shadowDom.querySelector('#all-answer').addEventListener('click',(e) => {        
+        this.shadowDom.querySelector('#all-answer').addEventListener('click',(e) => {  
+            this.audio()
             const id=e.target.id
+            
                 setTimeout(()=>{
                 if(this.k<this.listQues1.length-1){  
-                if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
-                    while(this.ok[this.order]===1){
-                        this.order=Math.floor(Math.random()*this.listQues1.length)
+                    if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
+                        while(this.ok[this.order]===1){
+                            this.order=Math.floor(Math.random()*this.listQues1.length)
+                        }
                         
-                    }
-                    // this.order++
-                    this.ok[this.order]=1
-                    setTimeout(()=>{
+                        this.ok[this.order]=1;
+                        this.my('Exactly ✔','green')
+                        // alert('doi chut');
+                        // (()=>{
+                        //     var x = document.getElementById("snackbar");
+                        //     x.className = "show";
+                        //     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                        //     console.log('done');
+                        // })
+                        setTimeout(()=>{
         
-                        this.showQuestion(this.order)
-                        this.k++
-                        this.score+=10
-                        this.shadowDom.getElementById('score').innerHTML=`Point: ${this.score}`
-                        
-                   },1000)
-                }
-                 else if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==0){
-                     console.log(this.score);
-                    this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
-                    if(this.score>getItemLocalStorage('currentUser').point) this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score)
-                    // console.log(this.score);
-                    // console.log(getItemLocalStorage('currentUser').id);
-                    // let a=await this.updatePoint(getItemLocalStorage('currentUser').gmail);
-                    // console.log(a);
-                    
-                 }
-             }
-             else{
-                if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
-                    this.shadowDom.querySelector('#all').innerHTML=`<victory-screen point="${this.score+10}"></victory-screen>`
-                    this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score+10)
-                }
-                else this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
-                
+                            this.showQuestion(this.order)
+                            this.k++;
+                            this.score+=10
+                            this.shadowDom.getElementById('score').innerHTML=`Point: ${this.score}`
                             
-             }},1500)
-            
+                       },1000)
+                    }
+                    else if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==0){
+                        this.my('Wrong ✘','red')
+                        setTimeout(()=>{
+                            this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
+                        },1000)
+                        if(this.score>getItemLocalStorage('currentUser').point) this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score)
+                    
+                    }
+                }
+                else{
+                    if(this.shadowDom.querySelector('#'+id).getAttribute('isTrue')==1) {
+                        this.my('Exactly ✔','green')
+                        setTimeout(()=>{
+                            this.shadowDom.querySelector('#all').innerHTML=`<victory-screen point="${this.score+10}"></victory-screen>`
+                        },1000)
+                        this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score+10)
+                    }
+                    else this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
+                       
+                }},1000)
+               
          })
          
         
     }
-    
+    my(mess,color){
+        var x = this.shadowDom.getElementById("snackbar");
+        x.innerHTML=`<style> #snackbar{color:${color};}</style>${mess}`
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 500);
+        console.log('done');
+    }
     async updatePoint(gmail,point){
         const res=await firebase.firestore().collection('user').where('gmail','==',gmail).get()
         const user=getDatas(res)
         firebase.firestore().collection('user').doc(user[0].id).update({'point':point})
+    }
+    
+    audio(){
+        this.shadowDom.getElementById('all').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
     }
 
 }

@@ -116,7 +116,7 @@ export class RankScreen extends HTMLElement{
             <div class="title">Game For Fun</div>
             <div id="main">
                 <div id="img">
-                    TOP 10!
+                    TOP 5!
                 </div>
                 <table id="show-rank">
                     <tr>
@@ -132,7 +132,10 @@ export class RankScreen extends HTMLElement{
         </div>
         `
         this.shadowDom.getElementById('back-to-home').addEventListener('click',()=>{
-            router.navigate('main')
+            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
+            setTimeout(()=>{
+                router.navigate('main')
+            },300)
         })
         let user=await this.getRank()
         for(let i=0;i<5;i++){

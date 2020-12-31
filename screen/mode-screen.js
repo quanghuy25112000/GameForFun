@@ -89,20 +89,30 @@ export class ModeScreen extends HTMLElement{
                 </div>
                 
                     <div class="bt"><button id="difficult" class="btn btn-5">Difficult</button></div>
+                    
             </div>
         </div>
         `
         this.shadowDom.getElementById('easy').addEventListener('click',(e)=>{
             e.preventDefault()
-            router.navigate('easy')
+            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
+            setTimeout(()=>{
+                router.navigate('easy')
+            },300)
         })
         this.shadowDom.getElementById('hard').addEventListener('click',(e)=>{
             e.preventDefault()
-            router.navigate('hard')
+            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
+            setTimeout(()=>{
+                router.navigate('hard')
+            },300)
         })
         this.shadowDom.getElementById('difficult').addEventListener('click',(e)=>{
             e.preventDefault()
-            router.navigate('difficult')
+            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
+            setTimeout(()=>{
+                router.navigate('difficult')
+            },300)
         })
     }
 }

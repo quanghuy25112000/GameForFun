@@ -90,20 +90,30 @@ export class MainScreen extends HTMLElement{
                 
                     <div class="bt"><button id="log-out" class="btn btn-5">Log out</button></div>
             </div>
+
         </div>
         `
         this.shadowDom.getElementById('start-game').addEventListener('click',(e)=>{
             e.preventDefault()
-            router.navigate('mode')
+            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
+            setTimeout(()=>{
+                router.navigate('mode')
+            },300)
         })
         this.shadowDom.getElementById('top').addEventListener('click',(e)=>{
             e.preventDefault()
-            router.navigate('rank')
+            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
+            setTimeout(()=>{
+                router.navigate('rank')
+            },300)
         })
         this.shadowDom.getElementById('log-out').addEventListener('click',(e)=>{
             e.preventDefault()
             localStorage.removeItem('currentUser')
-            router.navigate('login')
+            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
+            setTimeout(()=>{
+                router.navigate('login')
+            },500)
         })
     }
 }
