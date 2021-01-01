@@ -72,16 +72,17 @@ const style=`<style>
       font-family: 'Langar', cursive;
       font-size:25px;
       text-align:center;
-      margin-top: 12vh;
   }
   #point{
       color:yellow;
       text-align:center;
       font-size:23px;
       font-family: 'Langar', cursive;
+      margin-top: 10vh;
   }
   #show-rank{
-    margin-top: -9.5vh;
+    margin: auto;
+    margin-top: -9vh;
     width: 24vw;
     height: 26vh;
   }
@@ -96,9 +97,6 @@ th {
 }
 td{
     color:yellow;
-}
-tr:nth-child(even) {
-    background-color: #dddddd;
 }
 </style>`
 import {getDatas,getItemLocalStorage} from '../ultis.js'
@@ -127,12 +125,8 @@ export class RankScreen extends HTMLElement{
                         <th>Poin</th>
                     </tr>
                 </table>
-                <div id="report">
-                    Your Rank: 
-                </div>
-                <div id="point">
-                   
-                </div>
+                <div id="point"></div>
+                <div id="report"> Your Rank: </div>
                 <div class="bt"><button id="back-to-home" class="btn btn-5">Back To Home</button></div>
             </div>
         </div>
