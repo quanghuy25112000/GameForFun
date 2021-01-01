@@ -144,6 +144,7 @@ export class RankScreen extends HTMLElement{
         let rank=1;
         for(let i=0;i<user.length;i++){
             if(user[i].gmail==getItemLocalStorage('currentUser').gmail){
+                console.log(user);
                 break;
             }
             else rank++;
@@ -153,7 +154,7 @@ export class RankScreen extends HTMLElement{
         }
        
         this.shadowDom.getElementById('report').innerHTML+=`${rank}`
-        this.shadowDom.getElementById('point').innerHTML=`Point:  ${getItemLocalStorage('currentUser').point} `
+        this.shadowDom.getElementById('point').innerHTML=`Point:  ${await this.get(getItemLocalStorage('currentUser').gmail)} `
     }
     showRank(a,b,c){
         
@@ -169,6 +170,11 @@ export class RankScreen extends HTMLElement{
         const res=await firebase.firestore().collection('user').orderBy('point','desc').get()
         const user=getDatas(res)
         return user
+    }
+    async get(gmail){
+        const res=await firebase.firestore().collection('user').where('gmail','==',gmail).get()
+        const user=getDatas(res)
+        return user[0].point
     }
 }
 

@@ -198,6 +198,7 @@ export class Gameplay1 extends HTMLElement{
                         setTimeout(()=>{
                             this.shadowDom.querySelector('#all').innerHTML=`<victory-screen point="${this.score+1}"></victory-screen>`
                         },1000)
+                        if(this.score>getItemLocalStorage('currentUser').point)
                         this.updatePoint(getItemLocalStorage('currentUser').gmail,this.score+1)
                     }
                     else this.shadowDom.querySelector('#all').innerHTML=`<end-screen point="${this.score}"></end-screen>`
