@@ -14,4 +14,4 @@ import './screen/rank-screen.js'
 
 import './component/td.js'
 import './navigo.js'
-
+window.check=true;

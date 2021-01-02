@@ -144,7 +144,7 @@ export class RankScreen extends HTMLElement{
         let rank=1;
         for(let i=0;i<user.length;i++){
             if(user[i].gmail==getItemLocalStorage('currentUser').gmail){
-                console.log(user);
+                
                 break;
             }
             else rank++;
