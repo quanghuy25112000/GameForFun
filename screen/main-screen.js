@@ -24,12 +24,11 @@ const style=`<style>
     text-align: center;
 }
 #img{
-    margin-bottom:20px;
     font-family: 'Ewert', cursive;
     text-align:center;
     color: #fd0000;
     font-size: 40px;
-    margin-bottom: 10vh;
+    margin-bottom: 5vh;
 }
 .main button{
     margin: auto;
@@ -65,19 +64,27 @@ const style=`<style>
     justify-content: center;
     align-items: center;
   }
+  
 </style>`
 import '../component/background.js'
 export class MainScreen extends HTMLElement{
+    ok
     constructor(){
+        
         super()
+        this.ok=true;
         this.shadowDom=this.attachShadow({mode:'open'})
     }
     connectedCallback(){
         this.shadowDom.innerHTML=`
         ${style}
         <div class="home">
+            
             <div class="title">Game For Fun</div>
             <div id="main">
+            <div class="bt" >
+                   
+                </div>
                 <div id="img">
                     Are You Ready!
                 </div>
@@ -87,6 +94,9 @@ export class MainScreen extends HTMLElement{
                 <div class="bt">
                     <button id="top" class="btn btn-5">Top Server</button>
                 </div>
+                <div class="bt" id="volum">
+                <button id="mute" class="btn btn-5">UnMute</button>
+            </div>
                 
                     <div class="bt"><button id="log-out" class="btn btn-5">Log out</button></div>
             </div>
@@ -107,6 +117,26 @@ export class MainScreen extends HTMLElement{
                 router.navigate('rank')
             },300)
         })
+        this.shadowDom.getElementById('mute').addEventListener('click',(e)=>{
+            e.preventDefault()
+            //this.shadowDom.getElementById('audio').innerHTML=`<audio control loop autoplay src="./audio-background.mp3"></audio>`
+            if(window.check==true){
+                document.getElementById('audio').innerHTML=`<audio control loop autoplay src="./audio-background.mp3"></audio>`
+                this.shadowDom.getElementById('mute').innerHTML=`Mute`
+                window.check=false;
+            }
+            else{
+                document.getElementById('audio').innerHTML=``
+                this.shadowDom.getElementById('mute').innerHTML=`UnMute`
+                window.check=true;
+            }
+            
+            
+        })
+        // this.shadowDom.getElementById('unmute').addEventListener('click',(e)=>{
+        //     e.preventDefault()
+        //     this.shadowDom.getElementById('volum').innerHTML=`<button id="mute" class="btn btn-5">Mute</button>`
+        // })
         this.shadowDom.getElementById('log-out').addEventListener('click',(e)=>{
             e.preventDefault()
             localStorage.removeItem('currentUser')

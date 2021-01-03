@@ -88,7 +88,12 @@ export class ModeScreen extends HTMLElement{
                     <button id="hard" class="btn btn-5">Hard</button>
                 </div>
                 
-                    <div class="bt"><button id="difficult" class="btn btn-5">Difficult</button></div>
+                <div class="bt">
+                    <button id="difficult" class="btn btn-5">Difficult</button>
+                </div>
+                <div class="bt">
+                    <button id="back" class="btn btn-5">Back</button>
+                </div>
                     
             </div>
         </div>
@@ -112,6 +117,13 @@ export class ModeScreen extends HTMLElement{
             this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
             setTimeout(()=>{
                 router.navigate('difficult')
+            },300)
+        })
+        this.shadowDom.getElementById('back').addEventListener('click',(e)=>{
+            e.preventDefault()
+            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
+            setTimeout(()=>{
+                router.navigate('main')
             },300)
         })
     }
