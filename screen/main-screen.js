@@ -95,7 +95,7 @@ export class MainScreen extends HTMLElement{
                     <button id="top" class="btn btn-5">Top Server</button>
                 </div>
                 <div class="bt" id="volum">
-                <button id="mute" class="btn btn-5">Mute/UnMute</button>
+                <button id="mute" class="btn btn-5">UnMute</button>
             </div>
                 
                     <div class="bt"><button id="log-out" class="btn btn-5">Log out</button></div>
@@ -122,10 +122,12 @@ export class MainScreen extends HTMLElement{
             //this.shadowDom.getElementById('audio').innerHTML=`<audio control loop autoplay src="./audio-background.mp3"></audio>`
             if(window.check==true){
                 document.getElementById('audio').innerHTML=`<audio control loop autoplay src="./audio-background.mp3"></audio>`
+                this.shadowDom.getElementById('mute').innerHTML=`Mute`
                 window.check=false;
             }
             else{
                 document.getElementById('audio').innerHTML=``
+                this.shadowDom.getElementById('mute').innerHTML=`UnMute`
                 window.check=true;
             }
             
