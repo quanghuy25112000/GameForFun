@@ -105,14 +105,14 @@ export class MainScreen extends HTMLElement{
         `
         this.shadowDom.getElementById('start-game').addEventListener('click',(e)=>{
             e.preventDefault()
-            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
+            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="https://firebasestorage.googleapis.com/v0/b/ci-54-b1555.appspot.com/o/click.mp3?alt=media&fbclid=IwAR2kL_IHYu2isyWouvh-Xyu_y5OL9cm8VKhvO49Z5_vFB8Nmuc043XSrXSU"></audio>`
             setTimeout(()=>{
                 router.navigate('mode')
             },300)
         })
         this.shadowDom.getElementById('top').addEventListener('click',(e)=>{
             e.preventDefault()
-            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
+            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="https://firebasestorage.googleapis.com/v0/b/ci-54-b1555.appspot.com/o/click.mp3?alt=media&fbclid=IwAR2kL_IHYu2isyWouvh-Xyu_y5OL9cm8VKhvO49Z5_vFB8Nmuc043XSrXSU"></audio>`
             setTimeout(()=>{
                 router.navigate('rank')
             },300)
@@ -140,11 +140,12 @@ export class MainScreen extends HTMLElement{
         this.shadowDom.getElementById('log-out').addEventListener('click',(e)=>{
             e.preventDefault()
             localStorage.removeItem('currentUser')
-            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
+            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="https://firebasestorage.googleapis.com/v0/b/ci-54-b1555.appspot.com/o/click.mp3?alt=media&fbclid=IwAR2kL_IHYu2isyWouvh-Xyu_y5OL9cm8VKhvO49Z5_vFB8Nmuc043XSrXSU"></audio>`
             setTimeout(()=>{
                 router.navigate('login')
             },500)
         })
+        
     }
 }
 window.customElements.define('main-screen',MainScreen)

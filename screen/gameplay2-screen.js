@@ -47,7 +47,7 @@ const style=`<style>
         visibility: hidden;
         min-width: 250px;
         margin-left: -125px;
-        background-color: #333;
+        background-color: white;
         color: #fff;
         text-align: center;
         border-radius: 2px;
@@ -224,7 +224,7 @@ export class Gameplay2 extends HTMLElement{
         console.log('chinh xac')
     }
     audio(){
-        this.shadowDom.getElementById('all').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
+        this.shadowDom.getElementById('all').innerHTML+=`<audio control autoplay src="https://firebasestorage.googleapis.com/v0/b/ci-54-b1555.appspot.com/o/click.mp3?alt=media&fbclid=IwAR2kL_IHYu2isyWouvh-Xyu_y5OL9cm8VKhvO49Z5_vFB8Nmuc043XSrXSU"></audio>`
     }
 
 }

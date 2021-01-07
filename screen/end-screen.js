@@ -107,7 +107,7 @@ export class EndScreen extends HTMLElement{
         `
         
         this.shadowDom.getElementById('back-to-home').addEventListener('click',()=>{
-            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="../click.mp3"></audio>`
+            this.shadowDom.getElementById('main').innerHTML+=`<audio control autoplay src="https://firebasestorage.googleapis.com/v0/b/ci-54-b1555.appspot.com/o/click.mp3?alt=media&fbclid=IwAR2kL_IHYu2isyWouvh-Xyu_y5OL9cm8VKhvO49Z5_vFB8Nmuc043XSrXSU"></audio>`
             setTimeout(()=>{
                 router.navigate('main')
             },300)
